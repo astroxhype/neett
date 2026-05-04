@@ -1,0 +1,4531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NEET Foundation Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f2eadb;
+    --paper-2: #e5dac3;
+    --ink: #11100d;
+    --muted: #776e5e;
+    --line: #1d1a15;
+    --line-soft: #c9bea7;
+    --red: #e53119;
+    --red-dark: #9d1b0d;
+    --olive: #6c7c33;
+    --blue: #243d8f;
+    --gold: #c08b1c;
+    --shadow: 8px 8px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    --mx: 50vw;
+    --my: 50vh;
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    background:
+      linear-gradient(112deg, transparent 0 49.8%, rgba(229,49,25,0.085) 49.9% 50.18%, transparent 50.25% 100%) 0 0 / 260px 260px,
+      linear-gradient(90deg, rgba(17,16,13,0.055) 1px, transparent 1px) 0 0 / 34px 34px,
+      linear-gradient(rgba(17,16,13,0.055) 1px, transparent 1px) 0 0 / 34px 34px,
+      var(--paper);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(17,16,13,0.16) 0.7px, transparent 0.7px);
+    background-size: 5px 5px;
+    opacity: 0.22;
+    z-index: 50;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 49;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at var(--mx) var(--my), rgba(229,49,25,0.16), transparent min(34vw, 430px)),
+      linear-gradient(112deg, transparent 0 46%, rgba(229,49,25,0.045) 46.1% 46.45%, transparent 46.55% 100%);
+    mix-blend-mode: multiply;
+    opacity: 0.72;
+    transition: opacity 320ms ease;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; }
+
+  .shell {
+    width: min(1500px, calc(100vw - 28px));
+    margin: 14px auto 64px;
+    border: 2px solid var(--ink);
+    background:
+      linear-gradient(90deg, rgba(157,27,13,0.035) 1px, transparent 1px) 0 0 / 68px 100%,
+      var(--paper);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .shell::before,
+  .shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+    opacity: 0;
+  }
+
+  .topbar {
+    display: grid;
+    grid-template-columns: 1.2fr auto 1.2fr;
+    border-bottom: 2px solid var(--ink);
+    min-height: 54px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .topbar > div {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-right: 2px solid var(--paper);
+  }
+
+  .topbar > div:last-child { border-right: 0; justify-content: flex-end; }
+
+  .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.7rem, 3vw, 3.2rem);
+    line-height: 0.85;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand::before {
+    content: '学';
+    width: 34px;
+    height: 34px;
+    display: inline-grid;
+    place-items: center;
+    border: 2px solid var(--red);
+    color: var(--red);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    line-height: 1;
+    transform: rotate(-7deg);
+    animation: sealBreathe 3400ms cubic-bezier(.2,.8,.2,1) infinite;
+  }
+
+  @keyframes sealBreathe {
+    0%, 100% { transform: rotate(-7deg) scale(1); box-shadow: 0 0 0 rgba(229,49,25,0); }
+    50% { transform: rotate(-7deg) scale(1.08); box-shadow: 0 0 0 7px rgba(229,49,25,0.12); }
+  }
+
+  .tagline {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--paper-2);
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  .status::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    background: var(--red);
+    border: 1px solid var(--paper);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    min-height: 560px;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero::before {
+    content: '覚醒';
+    position: absolute;
+    right: clamp(20px, 8vw, 150px);
+    bottom: clamp(-40px, -2vw, -12px);
+    z-index: 0;
+    color: rgba(17,16,13,0.04);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(11rem, 26vw, 25rem);
+    line-height: 0.78;
+    transform: rotate(-7deg);
+    pointer-events: none;
+    animation: heroGhostDrift 7600ms cubic-bezier(.45,0,.2,1) infinite alternate;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: -12% -24%;
+    z-index: 0;
+    background:
+      linear-gradient(112deg, transparent 0 43%, rgba(229,49,25,0.2) 43.08% 43.32%, transparent 43.42% 100%),
+      linear-gradient(112deg, transparent 0 54%, rgba(17,16,13,0.12) 54.04% 54.16%, transparent 54.22% 100%);
+    transform: translateX(-70%) skewX(-14deg);
+    pointer-events: none;
+    animation: heroScanLoop 6800ms cubic-bezier(.77,0,.18,1) 1800ms infinite;
+  }
+
+  @keyframes heroGhostDrift {
+    from { opacity: 0.64; transform: translate3d(0, 0, 0) rotate(-7deg) scale(1); }
+    to { opacity: 1; transform: translate3d(-22px, -10px, 0) rotate(-4deg) scale(1.035); }
+  }
+
+  @keyframes heroScanLoop {
+    0%, 44% { opacity: 0; transform: translateX(-70%) skewX(-14deg); }
+    55% { opacity: 1; }
+    74% { opacity: 0.34; transform: translateX(42%) skewX(-14deg); }
+    100% { opacity: 0; transform: translateX(70%) skewX(-14deg); }
+  }
+
+  .hero-copy {
+    padding: clamp(28px, 6vw, 76px) clamp(28px, 6vw, 76px) clamp(28px, 6vw, 76px) clamp(58px, 7vw, 96px);
+    border-right: 2px solid var(--ink);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-kanji {
+    position: absolute;
+    right: clamp(18px, 6vw, 86px);
+    top: clamp(12px, 4vw, 52px);
+    z-index: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(14rem, 30vw, 27rem);
+    line-height: 0.82;
+    color: rgba(229,49,25,0.085);
+    transform: rotate(-8deg);
+    pointer-events: none;
+  }
+
+  .hero-copy > :not(.hero-kanji):not(.jp-vertical) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .jp-vertical {
+    position: absolute;
+    top: clamp(26px, 5vw, 70px);
+    bottom: clamp(26px, 5vw, 70px);
+    width: 34px;
+    display: grid;
+    place-items: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    border: 2px solid var(--ink);
+    background: var(--paper-2);
+    color: var(--red-dark);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    z-index: 2;
+    box-shadow: 4px 4px 0 rgba(17,16,13,0.14);
+  }
+
+  .jp-vertical-left {
+    left: clamp(10px, 2vw, 18px);
+  }
+
+  .jp-vertical-right {
+    right: clamp(10px, 2vw, 18px);
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--red);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red-dark);
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: '';
+    width: 42px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  h1 {
+    margin: 0;
+    max-width: 1030px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5.4rem, 14vw, 15.6rem);
+    font-weight: 400;
+    line-height: 0.78;
+    letter-spacing: -0.035em;
+  }
+
+  .serif {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.07em;
+  }
+
+  .strike {
+    color: var(--paper);
+    -webkit-text-stroke: 2px var(--ink);
+    text-shadow: 5px 5px 0 var(--red);
+  }
+
+  .hero-note {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    margin-top: 38px;
+    padding-top: 26px;
+    border-top: 2px solid var(--ink);
+  }
+
+  .hero-note p {
+    margin: 0;
+    max-width: 780px;
+    font-size: clamp(0.95rem, 1.4vw, 1.22rem);
+    line-height: 1.65;
+    color: #2f2a21;
+  }
+
+  .hero-stamp {
+    width: 154px;
+    height: 154px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--red);
+    color: var(--red-dark);
+    border-radius: 50%;
+    transform: rotate(-9deg);
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    background:
+      radial-gradient(circle, transparent 53%, rgba(229,49,25,0.12) 54% 56%, transparent 57%),
+      var(--paper);
+  }
+
+  .hero-stamp::after {
+    content: '合格';
+    position: absolute;
+    inset: auto auto -18px -12px;
+    width: 62px;
+    height: 62px;
+    display: grid;
+    place-items: center;
+    border: 3px solid var(--red);
+    color: var(--red);
+    background: var(--paper);
+    font-size: 0.78rem;
+    line-height: 1.15;
+    transform: rotate(11deg);
+  }
+
+  .hero-side {
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    background: var(--paper-2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .side-panel {
+    padding: 24px 58px 24px 24px;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+    z-index: 1;
+  }
+
+  .side-panel::after {
+    content: '道';
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    color: rgba(229,49,25,0.18);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 5.5rem;
+    line-height: 0.8;
+    pointer-events: none;
+  }
+
+  .side-panel h2 {
+    margin: 0 0 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 0.9;
+    font-weight: 400;
+  }
+
+  .metric {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: baseline;
+    padding: 15px 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .metric strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 0.8;
+    color: var(--red);
+  }
+
+  .metric span {
+    font-size: 0.72rem;
+    line-height: 1.45;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .nav-jump {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-jump a {
+    padding: 18px 16px;
+    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .nav-jump a:nth-child(even) { border-right: 0; }
+  .nav-jump a:nth-last-child(-n + 2) { border-bottom: 0; }
+
+  .nav-jump a:hover,
+  .nav-jump a:focus-visible {
+    background: var(--red);
+    color: var(--paper);
+    outline: 0;
+  }
+
+  .route-dock {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 80;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr) minmax(270px, 380px);
+    align-items: stretch;
+    padding: 0;
+    border: 0;
+    border-bottom: 2px solid var(--ink);
+    background:
+      linear-gradient(90deg, rgba(17,16,13,0.045) 1px, transparent 1px) 0 0 / 28px 28px,
+      var(--paper-2);
+    color: var(--ink);
+    box-shadow: 0 6px 0 rgba(17,16,13,0.12);
+    isolation: isolate;
+  }
+
+  .route-dock > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .route-dock::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(112deg, transparent 0 42%, rgba(229,49,25,0.12) 42.1% 42.6%, transparent 42.7% 100%);
+    pointer-events: none;
+  }
+
+  .route-dock::after {
+    content: '道';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    z-index: 0;
+    color: rgba(229,49,25,0.1);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5rem;
+    line-height: 1;
+    transform: translateY(-50%) rotate(-6deg);
+    pointer-events: none;
+  }
+
+  .route-dock-head {
+    min-width: 0;
+    display: grid;
+    align-content: center;
+    gap: 4px;
+    padding: 12px 16px;
+    border-right: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .route-dock-head span,
+  .route-readout span {
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .route-dock-head span {
+    color: rgba(242,234,219,0.58);
+  }
+
+  .route-dock-head strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.1rem;
+    line-height: 0.82;
+    font-weight: 400;
+    color: var(--paper);
+  }
+
+  .deck-controls {
+    display: grid;
+    gap: 0;
+    min-width: 0;
+  }
+
+  .subject-selector,
+  .route-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    min-width: 0;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .route-selector { border-bottom: 0; }
+
+  .subject-choice,
+  .class-choice,
+  .route-choice {
+    position: relative;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 0;
+    border-right: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    padding: 8px 13px;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .subject-choice::before,
+  .class-choice::before,
+  .route-choice::before {
+    content: '';
+    position: absolute;
+    inset: auto 8px 5px 8px;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 260ms cubic-bezier(.2,.8,.2,1), opacity 260ms ease;
+  }
+
+  .subject-choice b,
+  .class-choice b,
+  .route-choice b {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.18rem;
+    line-height: 0.8;
+    color: var(--red);
+    font-weight: 400;
+  }
+
+  .subject-choice span,
+  .class-choice span,
+  .route-choice span {
+    position: relative;
+    z-index: 1;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .route-choice em {
+    display: none;
+  }
+
+  .subject-choice small {
+    color: var(--muted);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .subject-choice:hover,
+  .subject-choice:focus-visible,
+  .subject-choice[aria-pressed="true"],
+  .class-choice:hover,
+  .class-choice:focus-visible,
+  .class-choice[aria-pressed="true"],
+  .route-choice:hover,
+  .route-choice:focus-visible,
+  .route-choice[aria-pressed="true"] {
+    outline: 0;
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-1px);
+  }
+
+  .subject-choice:hover b,
+  .subject-choice:focus-visible b,
+  .subject-choice[aria-pressed="true"] b,
+  .class-choice:hover b,
+  .class-choice:focus-visible b,
+  .class-choice[aria-pressed="true"] b,
+  .route-choice:hover b,
+  .route-choice:focus-visible b,
+  .route-choice[aria-pressed="true"] b {
+    color: var(--paper);
+  }
+
+  .route-choice[aria-pressed="true"],
+  .subject-choice[aria-pressed="true"],
+  .class-choice[aria-pressed="true"] {
+    background: var(--red);
+    color: var(--paper);
+  }
+
+  .route-choice[aria-pressed="true"] b,
+  .subject-choice[aria-pressed="true"] b,
+  .class-choice[aria-pressed="true"] b {
+    color: var(--ink);
+  }
+
+  .subject-choice:hover::before,
+  .subject-choice:focus-visible::before,
+  .subject-choice[aria-pressed="true"]::before,
+  .class-choice:hover::before,
+  .class-choice:focus-visible::before,
+  .class-choice[aria-pressed="true"]::before,
+  .route-choice:hover::before,
+  .route-choice:focus-visible::before,
+  .route-choice[aria-pressed="true"]::before {
+    transform: scaleX(1);
+  }
+
+  .subject-choice:hover small,
+  .subject-choice:focus-visible small,
+  .subject-choice[aria-pressed="true"] small {
+    color: var(--muted);
+  }
+
+  .route-readout {
+    display: grid;
+    align-content: center;
+    gap: 6px;
+    min-width: 0;
+    max-width: none;
+    padding: 10px 14px;
+    border-left: 2px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .route-readout strong {
+    color: var(--ink);
+    font-size: 0.62rem;
+    line-height: 1.35;
+  }
+
+  .dock-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .route-jump {
+    justify-self: start;
+    border: 1px solid var(--red);
+    background: var(--red);
+    color: var(--paper);
+    padding: 8px 10px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .route-jump:hover,
+  .route-jump:focus-visible {
+    outline: 0;
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-1px);
+  }
+
+  section[id] {
+    position: relative;
+  }
+
+  section[id][data-jp]::before {
+    content: attr(data-jp);
+    position: absolute;
+    right: clamp(10px, 2vw, 20px);
+    top: 18px;
+    z-index: 3;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 9px 6px;
+    border-left: 2px solid var(--red);
+    color: rgba(157,27,13,0.58);
+    background: rgba(242,234,219,0.74);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    pointer-events: none;
+  }
+
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    padding: 32px clamp(18px, 4vw, 44px);
+    padding-right: clamp(62px, 7vw, 92px);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-head h2 {
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: clamp(3rem, 7vw, 7rem);
+    line-height: 0.84;
+    letter-spacing: -0.02em;
+  }
+
+  .section-head p {
+    max-width: 480px;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.55;
+    font-size: 0.88rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 18px clamp(18px, 4vw, 44px);
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper-2);
+  }
+
+  .filter-btn {
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    padding: 10px 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: transform 180ms cubic-bezier(.2,.8,.2,1), background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .filter-btn[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 5px 5px 0 var(--red);
+    transform: translate(-2px, -2px);
+  }
+
+  .start-panel {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper-2);
+  }
+
+  .path-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border-right: 2px solid var(--ink);
+  }
+
+  .path-step {
+    min-height: 172px;
+    padding: 18px;
+    border: 0;
+    border-right: 1px solid var(--ink);
+    background: var(--paper);
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 200ms ease, color 200ms ease, transform 220ms cubic-bezier(.16,1,.3,1), box-shadow 220ms ease;
+  }
+
+  .path-step::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, transparent 0 42%, rgba(229,49,25,0.9) 42.2% 43%, transparent 43.2% 100%);
+    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .path-step:last-child { border-right: 0; }
+
+  .path-step b {
+    display: block;
+    margin-bottom: 24px;
+    color: var(--red);
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .path-step span {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.1rem;
+    line-height: 0.9;
+  }
+
+  .path-step:hover,
+  .path-step:focus-visible {
+    outline: 0;
+    background: var(--ink);
+    color: var(--paper);
+    transform: translate(-4px, -4px) rotate(-0.5deg);
+    box-shadow: 7px 7px 0 var(--red);
+    z-index: 2;
+  }
+
+  .path-step:hover::after,
+  .path-step:focus-visible::after {
+    animation: hoverBlade 520ms cubic-bezier(.77,0,.18,1) both;
+  }
+
+  .start-brief {
+    display: grid;
+    align-content: space-between;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .start-brief p {
+    margin: 0;
+    line-height: 1.6;
+    color: #2f2a21;
+  }
+
+  .primary-action {
+    width: 100%;
+    border: 2px solid var(--ink);
+    background: var(--red);
+    color: var(--paper);
+    padding: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+  }
+
+  .primary-action:hover,
+  .primary-action:focus-visible {
+    outline: 0;
+    background: var(--ink);
+  }
+
+  .map-wrap {
+    padding: clamp(18px, 4vw, 44px);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .map-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -12% -26%;
+    z-index: 5;
+    background:
+      linear-gradient(112deg, transparent 0 38%, rgba(229,49,25,0.9) 38.1% 38.8%, rgba(242,234,219,0.86) 38.9% 45%, transparent 45.1% 100%),
+      linear-gradient(112deg, transparent 0 52%, rgba(17,16,13,0.84) 52.1% 54%, transparent 54.1% 100%);
+    transform: translateX(-120%) skewX(-16deg);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  body.is-switching .map-wrap::before {
+    animation: routeSwitchBlade 720ms cubic-bezier(.77,0,.18,1) both;
+  }
+
+  @keyframes routeSwitchBlade {
+    0% { opacity: 0; transform: translateX(-120%) skewX(-16deg); }
+    28% { opacity: 1; }
+    62% { opacity: 0.92; transform: translateX(6%) skewX(-16deg); }
+    100% { opacity: 0; transform: translateX(120%) skewX(-16deg); }
+  }
+
+  .map {
+    display: grid;
+    gap: 18px;
+  }
+
+  .floor {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    min-height: 136px;
+  }
+
+  .floor-label {
+    display: grid;
+    align-content: space-between;
+    padding: 18px;
+    border-right: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .floor-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    line-height: 0.75;
+  }
+
+  .floor-label span:last-child {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--paper-2);
+  }
+
+  .nodes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 0;
+  }
+
+  .node {
+    position: relative;
+    min-height: 132px;
+    padding: 16px;
+    border-right: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--paper);
+    cursor: pointer;
+    overflow: hidden;
+    transform-origin: 50% 100%;
+    transition: background 180ms ease, color 180ms ease, transform 240ms cubic-bezier(.16,1,.3,1), box-shadow 240ms ease, filter 240ms ease;
+  }
+
+  .node:not(.route-node)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, transparent 0 43%, rgba(242,234,219,0.42) 43.1% 46%, transparent 46.1% 100%),
+      linear-gradient(115deg, transparent 0 56%, rgba(229,49,25,0.92) 56.1% 56.8%, transparent 56.9% 100%);
+    transform: translateX(-120%) skewX(-18deg);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .node::before {
+    content: attr(data-code);
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 4px 6px;
+    border: 1px solid currentColor;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .node h3 {
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+  }
+
+  .node h3::before {
+    content: '章';
+    display: inline-grid;
+    place-items: center;
+    width: 23px;
+    height: 23px;
+    margin: 0 8px 4px 0;
+    border: 1px solid var(--red);
+    color: var(--red-dark);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    line-height: 1;
+    vertical-align: middle;
+    transform: rotate(-5deg);
+  }
+
+  .node p {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 0.72rem;
+    line-height: 1.42;
+  }
+
+  .node-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .node-tag {
+    border: 1px solid currentColor;
+    padding: 4px 6px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .node:hover,
+  .node:focus-visible,
+  .node.is-active {
+    outline: 0;
+    background: var(--red);
+    color: var(--paper);
+    transform: translate(-5px, -5px) rotate(-0.45deg);
+    box-shadow: 8px 8px 0 var(--ink);
+    filter: saturate(1.08) contrast(1.03);
+    z-index: 2;
+  }
+
+  .node:not(.route-node):hover::after,
+  .node:not(.route-node):focus-visible::after,
+  .node:not(.route-node).is-active::after {
+    animation: hoverBlade 560ms cubic-bezier(.77,0,.18,1) both;
+  }
+
+  .node:hover h3::before,
+  .node:focus-visible h3::before,
+  .node.is-active h3::before {
+    animation: chapterStampHit 420ms cubic-bezier(.16,1,.3,1) both;
+  }
+
+  @keyframes hoverBlade {
+    0% { opacity: 0; transform: translateX(-120%) skewX(-18deg); }
+    24% { opacity: 0.9; }
+    100% { opacity: 0; transform: translateX(120%) skewX(-18deg); }
+  }
+
+  @keyframes chapterStampHit {
+    0% { transform: rotate(-5deg) scale(1.55); }
+    58% { transform: rotate(4deg) scale(0.92); }
+    100% { transform: rotate(-5deg) scale(1); }
+  }
+
+  .node:hover p,
+  .node:focus-visible p,
+  .node.is-active p { color: var(--paper-2); }
+
+  .node:hover .node-tag,
+  .node:focus-visible .node-tag,
+  .node.is-active .node-tag { color: var(--paper); }
+
+  .node[data-class="12"] h3::after {
+    content: ' XII';
+    color: var(--red);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+
+  .node:hover h3::after,
+  .node:focus-visible h3::after,
+  .node.is-active h3::after { color: var(--paper); }
+
+  .node.is-hidden { display: none; }
+
+  .map.is-route-mode {
+    gap: 0;
+  }
+
+  .route-map-panel {
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    overflow: hidden;
+  }
+
+  .route-map-head {
+    display: grid;
+    grid-template-columns: 180px 1fr auto;
+    align-items: end;
+    gap: 22px;
+    padding: 24px;
+    border-bottom: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .route-map-head b {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4.4rem, 9vw, 9rem);
+    line-height: 0.76;
+    color: var(--red);
+    font-weight: 400;
+  }
+
+  .route-map-head h3 {
+    margin: 0 0 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.2rem, 7vw, 7.8rem);
+    line-height: 0.82;
+    font-weight: 400;
+  }
+
+  .route-map-head p {
+    max-width: 760px;
+    margin: 0;
+    color: var(--paper-2);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .route-count {
+    min-width: 126px;
+    padding: 14px;
+    border: 2px solid var(--red);
+    text-align: center;
+    color: var(--red);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.62rem;
+  }
+
+  .route-count strong {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--paper);
+    font-size: 3.2rem;
+    line-height: 0.82;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .route-node-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    background: var(--ink);
+    gap: 2px;
+  }
+
+  .route-node {
+    min-height: 176px;
+    background:
+      linear-gradient(90deg, rgba(17,16,13,0.035) 1px, transparent 1px) 0 0 / 18px 18px,
+      var(--paper);
+    animation: routeNodeIn 520ms cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  .route-node::before {
+    content: attr(data-route-step) ' / ' attr(data-code);
+    border-color: var(--red);
+    color: var(--red-dark);
+  }
+
+  .route-node::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    width: 40px;
+    height: 2px;
+    background: var(--red);
+    transform-origin: right;
+    transform: scaleX(0.45);
+    transition: transform 180ms ease;
+  }
+
+  .route-node:hover::after,
+  .route-node:focus-visible::after,
+  .route-node.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .route-empty {
+    padding: clamp(26px, 5vw, 54px);
+    border: 2px solid var(--ink);
+    background:
+      linear-gradient(90deg, rgba(229,49,25,0.12) 1px, transparent 1px) 0 0 / 34px 34px,
+      var(--paper);
+    min-height: 260px;
+    display: grid;
+    align-content: center;
+    gap: 12px;
+  }
+
+  .route-empty b {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.82;
+    font-weight: 400;
+    color: var(--red);
+  }
+
+  .route-empty span {
+    max-width: 680px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.65;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  @keyframes routeNodeIn {
+    from { opacity: 0; transform: translateY(28px) skewX(-4deg); clip-path: inset(0 100% 0 0); }
+    to { opacity: 1; transform: translateY(0) skewX(0); clip-path: inset(0 0 0 0); }
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 420px) 1fr;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .detail-card {
+    padding: 28px;
+    border-right: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    min-height: 420px;
+  }
+
+  .detail-card .code {
+    display: inline-flex;
+    margin-bottom: 22px;
+    padding: 8px 10px;
+    border: 1px solid var(--paper);
+    color: var(--paper-2);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.68rem;
+  }
+
+  .detail-card h2 {
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: clamp(3.6rem, 7vw, 6.7rem);
+    line-height: 0.82;
+    letter-spacing: -0.03em;
+  }
+
+  .detail-card p {
+    margin: 22px 0 0;
+    color: var(--paper-2);
+    line-height: 1.65;
+  }
+
+  .detail-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 24px;
+    border: 1px solid var(--paper);
+    background: var(--paper);
+  }
+
+  .detail-meta div {
+    padding: 12px;
+    background: var(--ink);
+  }
+
+  .detail-meta b {
+    display: block;
+    color: var(--red);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    line-height: 0.9;
+    font-weight: 400;
+  }
+
+  .detail-meta span {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--paper-2);
+  }
+
+  .link-panel {
+    padding: 28px;
+    background: var(--paper-2);
+  }
+
+  .link-panel h3 {
+    margin: 0 0 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    line-height: 0.9;
+  }
+
+  .route {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .route:last-child { border-bottom: 1px solid var(--ink); }
+
+  .route strong {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red-dark);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 31px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    padding: 7px 9px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .detail-card strong { color: var(--paper); }
+
+  .topic-panel {
+    margin-top: 28px;
+    border-top: 2px solid var(--ink);
+    padding-top: 24px;
+  }
+
+  .topic-panel h4 {
+    margin: 0 0 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    line-height: 0.82;
+    font-weight: 400;
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+
+  .topic-card {
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    animation: topicRise 420ms cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  .topic-card b {
+    display: block;
+    padding: 14px;
+    border-bottom: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    line-height: 0.9;
+    font-weight: 400;
+  }
+
+  .topic-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .topic-card li {
+    position: relative;
+    padding: 11px 12px 11px 28px;
+    border-top: 1px solid var(--line-soft);
+    color: #2f2a21;
+    font-size: 0.76rem;
+    line-height: 1.38;
+  }
+
+  .topic-card li:first-child { border-top: 0; }
+
+  .topic-card li::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 17px;
+    width: 7px;
+    height: 7px;
+    background: var(--red);
+  }
+
+  @keyframes topicRise {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .systems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .system-card {
+    min-height: 330px;
+    padding: 26px;
+    border-right: 2px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .system-card:last-child { border-right: 0; }
+
+  .system-card h3 {
+    margin: 0 0 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 0.86;
+  }
+
+  .system-card p {
+    margin: 0 0 18px;
+    color: #2f2a21;
+    line-height: 1.55;
+  }
+
+  .system-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .system-card li {
+    padding: 11px 0;
+    border-top: 1px solid var(--line-soft);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .system-card li::before {
+    content: '→';
+    color: var(--red);
+    margin-right: 10px;
+    font-weight: 700;
+  }
+
+  .loop-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 2px solid var(--ink);
+  }
+
+  .loop-card {
+    padding: 24px;
+    border-right: 2px solid var(--ink);
+    background: var(--paper-2);
+  }
+
+  .loop-card:last-child { border-right: 0; }
+
+  .loop-card b {
+    display: block;
+    margin-bottom: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    line-height: 0.86;
+    font-weight: 400;
+  }
+
+  .loop-card span {
+    display: block;
+    color: var(--red-dark);
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .plan-card {
+    padding: 26px;
+    border-right: 2px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .plan-card:last-child { border-right: 0; }
+
+  .plan-card b {
+    display: block;
+    margin-bottom: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.4rem;
+    line-height: 0.82;
+    color: var(--red);
+    font-weight: 400;
+  }
+
+  .plan-card p {
+    margin: 0;
+    color: #2f2a21;
+    line-height: 1.55;
+    font-size: 0.86rem;
+  }
+
+  .tracker {
+    padding: clamp(18px, 4vw, 44px);
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper-2);
+  }
+
+  .tracker-board {
+    display: grid;
+    gap: 8px;
+  }
+
+  .tracker-row {
+    display: grid;
+    grid-template-columns: 74px 1fr repeat(4, 122px);
+    border: 1px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .tracker-row > * {
+    padding: 10px;
+    border-right: 1px solid var(--line-soft);
+  }
+
+  .tracker-row > *:last-child { border-right: 0; }
+
+  .tracker-row strong {
+    color: var(--red-dark);
+    font-size: 0.72rem;
+  }
+
+  .tracker-row span {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .track-btn {
+    border: 0;
+    background: transparent;
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  }
+
+  .track-btn[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .mission-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .mission-card,
+  .queue-card {
+    background: var(--paper);
+    padding: clamp(20px, 4vw, 36px);
+    min-height: 260px;
+  }
+
+  .mission-card h3,
+  .queue-card h3 {
+    margin: 0 0 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.6rem);
+    font-weight: 400;
+    line-height: 0.84;
+  }
+
+  .mission-list,
+  .queue-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mission-item,
+  .queue-item,
+  .command-result {
+    display: grid;
+    grid-template-columns: 86px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    border: 2px solid var(--ink);
+    background: var(--paper-2);
+    padding: 12px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mission-item b,
+  .queue-item b,
+  .command-result b {
+    color: var(--red-dark);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .mission-item strong,
+  .queue-item strong,
+  .command-result strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 0.9;
+  }
+
+  .mission-item span,
+  .queue-item span,
+  .command-result span {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .mission-item:hover,
+  .queue-item:hover,
+  .command-result:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .mission-item:hover span,
+  .queue-item:hover span,
+  .command-result:hover span {
+    color: var(--paper-2);
+  }
+
+  .queue-empty {
+    border: 2px dashed var(--ink);
+    padding: 18px;
+    background: var(--paper-2);
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .command-launch {
+    display: inline-flex;
+    margin-top: 14px;
+    border: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+  }
+
+  .command-palette {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: none;
+    place-items: start center;
+    padding-top: 8vh;
+    background: rgba(17,16,13,0.86);
+  }
+
+  .command-palette.is-open {
+    display: grid;
+  }
+
+  .command-box {
+    width: min(760px, calc(100vw - 28px));
+    border: 2px solid var(--paper);
+    background: var(--paper);
+    box-shadow: 8px 8px 0 var(--red);
+  }
+
+  .command-box input {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper);
+    padding: 18px;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .command-results {
+    max-height: 56vh;
+    overflow: auto;
+    display: grid;
+    gap: 1px;
+    background: var(--ink);
+  }
+
+  .page-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+    background:
+      linear-gradient(90deg, rgba(229,49,25,0.1) 1px, transparent 1px) 0 0 / 34px 34px,
+      var(--ink);
+    color: var(--paper);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 16vw, 14rem);
+    opacity: 0;
+    transform: translateX(-100%) skewX(-14deg);
+    overflow: hidden;
+    text-shadow: 10px 10px 0 var(--red);
+    letter-spacing: -0.03em;
+  }
+
+  .page-transition::before,
+  .page-transition::after {
+    content: '';
+    position: absolute;
+    inset: -18% -28%;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .page-transition::before {
+    background:
+      linear-gradient(112deg, transparent 0 42%, rgba(229,49,25,0.95) 42.2% 43.4%, transparent 43.6% 100%),
+      linear-gradient(112deg, transparent 0 56%, rgba(242,234,219,0.35) 56.1% 61%, transparent 61.1% 100%);
+    transform: translateX(-80%) skewX(-18deg);
+  }
+
+  .page-transition::after {
+    background:
+      radial-gradient(circle at 50% 50%, rgba(229,49,25,0.26), transparent 26%),
+      repeating-linear-gradient(0deg, transparent 0 10px, rgba(242,234,219,0.055) 10px 11px);
+    mix-blend-mode: screen;
+  }
+
+  .page-transition.is-active {
+    animation: pageSlash 760ms cubic-bezier(.77,0,.18,1) forwards;
+  }
+
+  .page-transition.is-active::before {
+    animation: pageSlashBlade 760ms cubic-bezier(.77,0,.18,1) 80ms both;
+  }
+
+  .page-transition.is-active::after {
+    animation: pageStaticBloom 760ms ease both;
+  }
+
+  @keyframes pageSlash {
+    0% { opacity: 0; transform: translateX(-100%) skewX(-14deg); }
+    36% { opacity: 1; transform: translateX(0) skewX(-14deg); }
+    72% { opacity: 1; transform: translateX(0) skewX(0); }
+    100% { opacity: 1; transform: translateX(0) skewX(0); }
+  }
+
+  @keyframes pageSlashBlade {
+    0% { opacity: 0; transform: translateX(-80%) skewX(-18deg); }
+    40% { opacity: 1; }
+    100% { opacity: 0.3; transform: translateX(38%) skewX(-18deg); }
+  }
+
+  @keyframes pageStaticBloom {
+    0% { opacity: 0; transform: scale(0.94); }
+    45% { opacity: 1; transform: scale(1.04); }
+    100% { opacity: 0.38; transform: scale(1); }
+  }
+
+  .motion-ready .floor,
+  .motion-ready .system-card,
+  .motion-ready .stream,
+  .motion-ready .loop-card,
+  .motion-ready .plan-card,
+  .motion-ready .chapter-row,
+  .motion-ready .tracker-row,
+  .motion-ready .mission-card,
+  .motion-ready .queue-card,
+  .motion-ready .node:not(.is-active) {
+    opacity: 0;
+    transform: translateY(34px) skewX(-3deg);
+    clip-path: inset(0 0 20% 0);
+  }
+
+  .motion-ready .is-seen {
+    animation: scrollBladeIn 760ms cubic-bezier(.16,1,.3,1) calc(var(--motion-index, 0) * 42ms) both;
+  }
+
+  @keyframes scrollBladeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(38px) skewX(-5deg);
+      clip-path: inset(0 0 100% 0);
+      filter: contrast(1.24) saturate(0.86);
+    }
+    54% {
+      opacity: 1;
+      transform: translateY(-5px) skewX(1deg);
+      clip-path: inset(0 0 0 0);
+      filter: contrast(1.1) saturate(1.04);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) skewX(0);
+      clip-path: inset(0 0 0 0);
+      filter: none;
+    }
+  }
+
+  .streams {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .stream {
+    min-height: 450px;
+    padding: 26px;
+    border-right: 2px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .stream:last-child { border-right: 0; }
+
+  .stream h3 {
+    margin: 0 0 24px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    line-height: 0.84;
+    font-weight: 400;
+  }
+
+  .stream ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: path;
+  }
+
+  .stream li {
+    counter-increment: path;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line-soft);
+    color: #2f2a21;
+    line-height: 1.45;
+  }
+
+  .stream li::before {
+    content: counter(path, decimal-leading-zero);
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  .syllabus {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .class-block {
+    padding: 28px;
+    border-right: 2px solid var(--ink);
+  }
+
+  .class-block:last-child { border-right: 0; }
+
+  .class-block h3 {
+    margin: 0 0 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 4.4rem;
+    line-height: 0.85;
+  }
+
+  .chapter-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  .chapter-row {
+    display: grid;
+    grid-template-columns: 46px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 220ms cubic-bezier(.16,1,.3,1), background 180ms ease, color 180ms ease, box-shadow 220ms ease;
+  }
+
+  .chapter-row::after {
+    content: '章';
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    color: rgba(229,49,25,0.18);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .chapter-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(112deg, transparent 0 44%, rgba(229,49,25,0.82) 44.2% 45%, transparent 45.2% 100%);
+    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .chapter-row:hover,
+  .chapter-row:focus-visible {
+    outline: 0;
+    background: var(--ink);
+    color: var(--paper);
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0 var(--red);
+    z-index: 2;
+  }
+
+  .chapter-row:hover::before,
+  .chapter-row:focus-visible::before {
+    animation: hoverBlade 520ms cubic-bezier(.77,0,.18,1) both;
+  }
+
+  .chapter-row b {
+    color: var(--red-dark);
+    font-size: 0.74rem;
+  }
+
+  .chapter-row span {
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .chapter-row em {
+    font-style: normal;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .exam-band {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .exam-card {
+    padding: 26px;
+    border-right: 2px solid var(--paper);
+  }
+
+  .exam-card:last-child { border-right: 0; }
+
+  .exam-card b {
+    display: block;
+    margin-bottom: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 0.85;
+    color: var(--red);
+    font-weight: 400;
+  }
+
+  .exam-card p {
+    margin: 0;
+    color: var(--paper-2);
+    line-height: 1.55;
+    font-size: 0.86rem;
+  }
+
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    padding: 20px clamp(18px, 4vw, 44px);
+    background: var(--red);
+    color: var(--paper);
+    border-top: 2px solid var(--ink);
+    align-items: center;
+  }
+
+  .footer strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 0.9;
+  }
+
+  .footer span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .accent-olive { color: var(--olive); }
+  .accent-blue { color: var(--blue); }
+  .accent-gold { color: var(--gold); }
+
+  @media (max-width: 1060px) {
+    body {
+      padding-bottom: 0;
+    }
+
+    .route-dock {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    .route-dock-head,
+    .route-readout {
+      border: 0;
+      border-bottom: 2px solid var(--ink);
+      max-width: none;
+    }
+
+    .route-map-head {
+      grid-template-columns: 1fr;
+    }
+
+    .route-map-head b {
+      font-size: 5rem;
+    }
+
+    .hero,
+    .start-panel,
+    .detail-grid,
+    .systems-grid,
+    .loop-board,
+    .plan-grid,
+    .streams,
+    .syllabus,
+    .exam-band { grid-template-columns: 1fr; }
+
+    .path-strip { grid-template-columns: repeat(3, 1fr); border-right: 0; }
+
+    .hero-copy,
+    .path-strip,
+    .detail-card,
+    .system-card,
+    .loop-card,
+    .plan-card,
+    .stream,
+    .class-block,
+    .exam-card { border-right: 0; }
+
+    .hero-copy,
+    .path-strip,
+    .detail-card,
+    .system-card,
+    .loop-card,
+    .plan-card,
+    .stream,
+    .class-block,
+    .exam-card { border-bottom: 2px solid var(--ink); }
+
+    .exam-card { border-bottom-color: var(--paper); }
+    .exam-card:last-child { border-bottom: 0; }
+  }
+
+  @media (max-width: 760px) {
+    body { padding-bottom: 0; }
+    .shell { width: calc(100vw - 18px); margin-top: 9px; box-shadow: 5px 5px 0 var(--ink); }
+    .topbar { grid-template-columns: 1fr; }
+    .topbar > div { border-right: 0; border-bottom: 2px solid var(--paper); }
+    .topbar > div:last-child { justify-content: flex-start; border-bottom: 0; }
+    .hero-note { grid-template-columns: 1fr; }
+    .hero-copy { padding-left: 52px; }
+    .jp-vertical-right { display: none; }
+    section[id][data-jp]::before { display: none; }
+    .hero-stamp { width: 126px; height: 126px; }
+    .section-head { grid-template-columns: 1fr; }
+    .floor { grid-template-columns: 1fr; }
+    .floor-label { border-right: 0; border-bottom: 2px solid var(--ink); grid-template-columns: auto 1fr; align-items: end; gap: 16px; }
+    .route { grid-template-columns: 1fr; }
+    .chapter-row { grid-template-columns: 38px 1fr; }
+    .chapter-row em { grid-column: 2; }
+    .path-strip { grid-template-columns: 1fr; }
+    .path-step { border-right: 0; border-bottom: 1px solid var(--ink); min-height: 128px; }
+    .subject-selector,
+    .route-selector { gap: 5px; }
+    .subject-choice,
+    .class-choice,
+    .route-choice { min-height: 34px; padding: 7px 9px; }
+    .subject-choice b,
+    .class-choice b,
+    .route-choice b { font-size: 1.1rem; }
+    .dock-actions { flex-wrap: wrap; }
+    .route-node-grid { grid-template-columns: 1fr; }
+    .mission-board { grid-template-columns: 1fr; }
+    .mission-item,
+    .queue-item,
+    .command-result { grid-template-columns: 1fr; }
+    .tracker-row { grid-template-columns: 1fr 1fr; }
+    .tracker-row strong,
+    .tracker-row span { grid-column: span 2; }
+    .footer { grid-template-columns: 1fr; }
+  }
+  /* ── LOADER ── */
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--ink);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  body.loader-running .shell {
+    opacity: 0;
+    transform: translateY(34px) scale(0.94) rotate(-0.55deg);
+    clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
+  }
+
+  body.loader-enter .shell {
+    animation: siteIgnition 1980ms cubic-bezier(.16,1,.3,1) 120ms both;
+    transform-origin: center;
+  }
+
+  body.loader-enter .shell::before {
+    background:
+      linear-gradient(90deg, transparent 0 7%, var(--red) 7% 7.35%, transparent 7.35% 100%),
+      linear-gradient(rgba(17,16,13,0.08) 1px, transparent 1px) 0 0 / 100% 26px,
+      rgba(17,16,13,0.86);
+    transform-origin: left;
+    animation: mapGateScan 1650ms cubic-bezier(.77,0,.18,1) 180ms both;
+  }
+
+  body.loader-enter .shell::after {
+    background:
+      linear-gradient(112deg, transparent 0 43%, rgba(229,49,25,0.92) 43.1% 44%, transparent 44.1% 100%),
+      linear-gradient(90deg, rgba(242,234,219,0.96), rgba(242,234,219,0.78));
+    mix-blend-mode: multiply;
+    animation: mapPaperFlash 980ms cubic-bezier(.2,.8,.2,1) 560ms both;
+  }
+
+  body.loader-enter .topbar {
+    transform-origin: top;
+    animation: topbarDrop 880ms cubic-bezier(.16,1,.3,1) 500ms both;
+  }
+
+  body.loader-enter .route-dock {
+    transform-origin: top;
+    animation: routeDockIgnite 1040ms cubic-bezier(.16,1,.3,1) 620ms both;
+  }
+
+  body.loader-enter .hero-copy {
+    animation: heroPlateIn 1120ms cubic-bezier(.16,1,.3,1) 640ms both;
+  }
+
+  body.loader-enter .hero-side {
+    animation: sidePlateIn 1040ms cubic-bezier(.16,1,.3,1) 760ms both;
+  }
+
+  body.loader-enter .hero-copy h1 {
+    animation: mastheadStrike 1040ms cubic-bezier(.16,1,.3,1) 900ms both;
+  }
+
+  body.loader-enter .hero-note {
+    animation: heroNoteIn 720ms cubic-bezier(.2,.8,.2,1) 1220ms both;
+  }
+
+  @keyframes siteIgnition {
+    0% {
+      opacity: 0;
+      transform: translateY(34px) scale(0.94) rotate(-0.55deg);
+      clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
+    }
+    24% {
+      opacity: 1;
+      transform: translateY(18px) scale(0.975) rotate(0.18deg);
+      clip-path: polygon(4% 0, 96% 0, 88% 100%, 12% 100%);
+    }
+    58% {
+      opacity: 1;
+      transform: translateY(-6px) scale(1.012) rotate(-0.08deg);
+      clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  @keyframes mapGateScan {
+    0% { opacity: 1; transform: translateX(-100%) skewX(-18deg); }
+    38% { opacity: 1; transform: translateX(0) skewX(-18deg); }
+    66% { opacity: 0.86; transform: translateX(12%) skewX(-18deg); }
+    100% { opacity: 0; transform: translateX(118%) skewX(-18deg); }
+  }
+
+  @keyframes mapPaperFlash {
+    0% { opacity: 0; transform: translateX(-120%) skewX(-24deg); }
+    36% { opacity: 0.82; transform: translateX(-4%) skewX(-24deg); }
+    100% { opacity: 0; transform: translateX(120%) skewX(-24deg); }
+  }
+
+  @keyframes topbarDrop {
+    from { opacity: 0; transform: translateY(-100%) scaleY(0.72); }
+    to { opacity: 1; transform: translateY(0) scaleY(1); }
+  }
+
+  @keyframes routeDockIgnite {
+    0% { opacity: 0; transform: translateY(-18px) scaleY(0.88); filter: contrast(1.5); }
+    58% { opacity: 1; transform: translateY(3px) scaleY(1.03); filter: contrast(1.12); }
+    100% { opacity: 1; transform: translateY(0) scaleY(1); filter: none; }
+  }
+
+  @keyframes heroPlateIn {
+    from { opacity: 0; transform: translateX(-42px); clip-path: inset(0 100% 0 0); }
+    to { opacity: 1; transform: translateX(0); clip-path: inset(0 0 0 0); }
+  }
+
+  @keyframes sidePlateIn {
+    from { opacity: 0; transform: translateX(46px); clip-path: inset(0 0 0 100%); }
+    to { opacity: 1; transform: translateX(0); clip-path: inset(0 0 0 0); }
+  }
+
+  @keyframes mastheadStrike {
+    0% { opacity: 0; transform: translateY(70px) scale(0.96) skewX(-8deg); clip-path: inset(100% 0 0 0); }
+    56% { opacity: 1; transform: translateY(-8px) scale(1.015) skewX(2deg); clip-path: inset(0 0 0 0); }
+    100% { opacity: 1; transform: translateY(0) scale(1) skewX(0); clip-path: inset(0 0 0 0); }
+  }
+
+  @keyframes heroNoteIn {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .loader::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(229,49,25,0.025) 2px, rgba(229,49,25,0.025) 4px);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .loader::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(229,49,25,0.04) 1px, transparent 1px) 0 0 / 60px 60px,
+      linear-gradient(rgba(229,49,25,0.04) 1px, transparent 1px) 0 0 / 60px 60px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .loader-flash {
+    position: absolute;
+    inset: 0;
+    background: var(--red);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .loader-flash.is-hit {
+    animation: flashHit 300ms ease forwards;
+  }
+
+  @keyframes flashHit {
+    0% { opacity: 0.18; }
+    100% { opacity: 0; }
+  }
+
+  .loader-corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: var(--red);
+    border-style: solid;
+    opacity: 0;
+    z-index: 5;
+  }
+
+  .loader-tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; animation: cornerIn 400ms ease 100ms forwards; }
+  .loader-tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; animation: cornerIn 400ms ease 160ms forwards; }
+  .loader-bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; animation: cornerIn 400ms ease 220ms forwards; }
+  .loader-br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; animation: cornerIn 400ms ease 280ms forwards; }
+
+  @keyframes cornerIn {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .loader-jp {
+    position: absolute;
+    writing-mode: vertical-rl;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: rgba(242,234,219,0.12);
+    z-index: 3;
+    opacity: 0;
+  }
+
+  .loader-jp-l {
+    left: 46px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: jpIn 600ms ease 300ms forwards;
+  }
+
+  .loader-jp-r {
+    right: 46px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: jpIn 600ms ease 400ms forwards;
+  }
+
+  @keyframes jpIn {
+    from { opacity: 0; transform: translateY(-45%); }
+    to { opacity: 1; transform: translateY(-50%); }
+  }
+
+  .loader-hline {
+    position: absolute;
+    left: 60px;
+    right: 60px;
+    height: 1px;
+    background: rgba(229,49,25,0.2);
+    z-index: 3;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .loader-hline-t { top: 55px; animation: hlineGrow 500ms ease 350ms forwards; }
+  .loader-hline-b { bottom: 55px; animation: hlineGrow 500ms ease 400ms forwards; transform-origin: right; }
+
+  @keyframes hlineGrow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .loader-cut {
+    position: absolute;
+    left: -20vw;
+    width: 140vw;
+    height: 2px;
+    background: var(--red);
+    z-index: 4;
+    opacity: 0;
+    transform: rotate(-13deg) scaleX(0);
+    transform-origin: left;
+  }
+
+  .loader-cut-a {
+    top: 33%;
+    animation: cutSlash 720ms cubic-bezier(.16,1,.3,1) 760ms forwards;
+  }
+
+  .loader-cut-b {
+    top: 68%;
+    transform: rotate(11deg) scaleX(0);
+    animation: cutSlashB 760ms cubic-bezier(.16,1,.3,1) 1320ms forwards;
+  }
+
+  @keyframes cutSlash {
+    0% { opacity: 0; transform: rotate(-13deg) scaleX(0); }
+    20% { opacity: 1; }
+    100% { opacity: 0.72; transform: rotate(-13deg) scaleX(1); }
+  }
+
+  @keyframes cutSlashB {
+    0% { opacity: 0; transform: rotate(11deg) scaleX(0); }
+    20% { opacity: 1; }
+    100% { opacity: 0.72; transform: rotate(11deg) scaleX(1); }
+  }
+
+  .loader-kanji {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    color: rgba(242,234,219,0.035);
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(18rem, 48vw, 42rem);
+    line-height: 0.75;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    animation: kanjiBreath 1800ms cubic-bezier(.16,1,.3,1) 200ms forwards;
+    pointer-events: none;
+  }
+
+  .loader-sigil {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 3;
+    width: min(68vmin, 620px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(229,49,25,0.34);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-12deg) scale(0.58);
+    opacity: 0;
+    animation: sigilWake 3200ms cubic-bezier(.16,1,.3,1) 220ms forwards;
+    pointer-events: none;
+  }
+
+  .loader-sigil::before,
+  .loader-sigil::after {
+    content: '';
+    position: absolute;
+    inset: 12%;
+    border: 1px solid rgba(242,234,219,0.12);
+    border-radius: 50%;
+  }
+
+  .loader-sigil::after {
+    inset: 27%;
+    border-style: dashed;
+    border-color: rgba(229,49,25,0.42);
+    animation: sigilCounter 6200ms linear infinite;
+  }
+
+  .sigil-axis,
+  .sigil-ring,
+  .sigil-mark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: block;
+    pointer-events: none;
+  }
+
+  .sigil-axis {
+    width: 108%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(229,49,25,0.58), transparent);
+    transform-origin: center;
+  }
+
+  .sigil-axis:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); }
+  .sigil-axis:nth-child(2) { transform: translate(-50%, -50%) rotate(90deg); }
+
+  .sigil-ring {
+    width: 68%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(242,234,219,0.18);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    animation: sigilSpin 8200ms linear infinite;
+  }
+
+  .sigil-ring::before,
+  .sigil-ring::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--red);
+    background: var(--ink);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .sigil-ring::before { top: -7px; }
+  .sigil-ring::after { bottom: -7px; }
+
+  .sigil-mark {
+    width: 28%;
+    aspect-ratio: 1;
+    border: 2px solid rgba(229,49,25,0.7);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0.82);
+    box-shadow: inset 0 0 0 12px rgba(229,49,25,0.08);
+  }
+
+  @keyframes sigilWake {
+    0% { opacity: 0; transform: translate(-50%, -50%) rotate(-18deg) scale(0.44); filter: blur(4px); }
+    22% { opacity: 0.76; filter: blur(0); }
+    68% { opacity: 0.52; transform: translate(-50%, -50%) rotate(5deg) scale(1); }
+    100% { opacity: 0.28; transform: translate(-50%, -50%) rotate(0deg) scale(1.08); }
+  }
+
+  @keyframes sigilSpin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  @keyframes sigilCounter {
+    to { transform: rotate(-360deg); }
+  }
+
+  @keyframes kanjiBreath {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.72) rotate(-4deg); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  }
+
+  .loader-seal {
+    position: absolute;
+    right: clamp(52px, 8vw, 110px);
+    bottom: clamp(74px, 10vw, 120px);
+    z-index: 6;
+    width: 86px;
+    height: 86px;
+    border: 2px solid var(--red);
+    color: var(--red);
+    display: grid;
+    place-items: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.7rem;
+    line-height: 0.8;
+    transform: rotate(10deg) scale(0);
+    opacity: 0;
+    animation: sealStamp 520ms cubic-bezier(.2,.8,.2,1) 2100ms forwards;
+  }
+
+  .loader-seal::after {
+    content: '合格';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+  }
+
+  @keyframes sealStamp {
+    0% { opacity: 0; transform: rotate(10deg) scale(2.4); }
+    65% { opacity: 1; transform: rotate(10deg) scale(0.9); }
+    100% { opacity: 1; transform: rotate(10deg) scale(1); }
+  }
+
+  .loader-kicker {
+    position: absolute;
+    top: clamp(76px, 9vw, 104px);
+    left: 50%;
+    z-index: 6;
+    transform: translateX(-50%);
+    color: rgba(242,234,219,0.42);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    animation: kickerDrop 500ms ease 600ms forwards;
+  }
+
+  @keyframes kickerDrop {
+    from { opacity: 0; transform: translate(-50%, -12px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+
+  .loader-count {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 6;
+    pointer-events: none;
+    isolation: isolate;
+  }
+
+  .loader-count::before,
+  .loader-count::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: min(82vw, 920px);
+    height: clamp(82px, 16vw, 180px);
+    border-top: 2px solid rgba(229,49,25,0.58);
+    border-bottom: 2px solid rgba(229,49,25,0.58);
+    transform: translateX(-50%) scaleX(0) skewX(-14deg);
+    z-index: -1;
+  }
+
+  .loader-count::before {
+    top: 50%;
+    margin-top: clamp(-118px, -10vw, -72px);
+    animation: countRailA 2600ms cubic-bezier(.16,1,.3,1) 420ms forwards;
+  }
+
+  .loader-count::after {
+    bottom: 50%;
+    margin-bottom: clamp(-118px, -10vw, -72px);
+    animation: countRailB 2600ms cubic-bezier(.16,1,.3,1) 520ms forwards;
+  }
+
+  @keyframes countRailA {
+    0% { opacity: 0; transform: translateX(-50%) scaleX(0) skewX(-14deg); }
+    18% { opacity: 1; transform: translateX(-50%) scaleX(1) skewX(-14deg); }
+    82% { opacity: 1; transform: translateX(-50%) scaleX(1) skewX(-14deg); }
+    100% { opacity: 0; transform: translateX(-50%) scaleX(0.08) skewX(-14deg); }
+  }
+
+  @keyframes countRailB {
+    0% { opacity: 0; transform: translateX(-50%) scaleX(0) skewX(14deg); }
+    18% { opacity: 1; transform: translateX(-50%) scaleX(1) skewX(14deg); }
+    82% { opacity: 1; transform: translateX(-50%) scaleX(1) skewX(14deg); }
+    100% { opacity: 0; transform: translateX(-50%) scaleX(0.08) skewX(14deg); }
+  }
+
+  .count-num {
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(11rem, 34vw, 25rem);
+    line-height: 1.02;
+    color: var(--paper);
+    opacity: 0;
+    letter-spacing: -0.025em;
+    -webkit-text-stroke: 1px var(--paper);
+    transform-origin: center;
+    will-change: transform, opacity;
+    text-shadow: 12px 12px 0 rgba(229,49,25,0.9), -2px -2px 0 rgba(242,234,219,0.15);
+    padding: 0.14em 0.12em 0.08em;
+    overflow: visible;
+  }
+
+  .count-num::before,
+  .count-num::after {
+    content: attr(data-num);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .count-num::before {
+    color: var(--red);
+    z-index: -1;
+    transform: translate(0.055em, -0.045em);
+    clip-path: polygon(0 0, 100% 0, 100% 42%, 0 58%);
+  }
+
+  .count-num::after {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--red);
+    z-index: -2;
+    transform: translate(-0.045em, 0.05em);
+    clip-path: polygon(0 48%, 100% 34%, 100% 100%, 0 100%);
+  }
+
+  .count-num.is-slam {
+    animation: numSlam 560ms cubic-bezier(.16,1,.3,1) forwards;
+  }
+
+  .count-num.is-out {
+    animation: numOut 320ms cubic-bezier(.77,0,.18,1) forwards;
+  }
+
+  @keyframes numSlam {
+    0% {
+      opacity: 0;
+      transform: translate3d(-8vw, -6vh, 0) scale(0.72) skewX(-18deg) rotate(-5deg);
+      clip-path: inset(-24% 52% -24% 48%);
+      letter-spacing: 0.08em;
+    }
+    38% {
+      opacity: 1;
+      transform: translate3d(1vw, 0, 0) scale(1.12) skewX(6deg) rotate(1deg);
+      clip-path: inset(-24% 0 -24% 0);
+      letter-spacing: -0.035em;
+    }
+    68% {
+      opacity: 1;
+      transform: translate3d(-0.4vw, 0, 0) scale(0.96) skewX(-2deg) rotate(-0.3deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1) skewX(0) rotate(0);
+      clip-path: inset(-24% 0 -24% 0);
+      letter-spacing: -0.025em;
+    }
+  }
+
+  @keyframes numOut {
+    0% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1) skewX(0);
+      clip-path: inset(-24% 0 -24% 0);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(16vw, 0, 0) scale(1.26) skewX(-18deg);
+      clip-path: inset(-24% 0 -24% 100%);
+    }
+  }
+
+  .loader-stripe {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 7;
+  }
+
+  .loader-stripe.is-sweep {
+    animation: stripeSweep 450ms cubic-bezier(.4,0,.2,1) forwards;
+  }
+
+  @keyframes stripeSweep {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .loader-reveal {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    place-content: center;
+    text-align: center;
+    z-index: 8;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-reveal.is-on {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .loader-reveal h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5.5rem, 18vw, 16rem);
+    line-height: 0.82;
+    letter-spacing: -0.03em;
+    color: var(--paper);
+    margin: 0;
+    clip-path: inset(50% 0 50% 0);
+    text-shadow: 9px 9px 0 var(--red);
+  }
+
+  .loader-reveal.is-on h1 {
+    animation: crackReveal 700ms cubic-bezier(.16,1,.3,1) forwards;
+  }
+
+  @keyframes crackReveal {
+    from { clip-path: inset(50% 0 50% 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  .loader-reveal .r-jp {
+    display: block;
+    margin-top: 18px;
+    font-size: 0.8rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--red);
+    opacity: 0;
+  }
+
+  .loader-reveal .r-sub {
+    display: block;
+    margin-top: 12px;
+    color: rgba(242,234,219,0.54);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+  }
+
+  .loader-reveal.is-on .r-jp {
+    animation: rJpIn 500ms ease 350ms forwards;
+  }
+
+  .loader-reveal.is-on .r-sub {
+    animation: rJpIn 500ms ease 480ms forwards;
+  }
+
+  @keyframes rJpIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .loader-reveal .r-line {
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--red);
+    margin: 14px auto 0;
+    opacity: 0;
+  }
+
+  .loader-reveal.is-on .r-line {
+    animation: rJpIn 400ms ease 500ms forwards;
+  }
+
+  .loader-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--red);
+    width: 0;
+    z-index: 10;
+    transition: width 350ms cubic-bezier(.4,0,.2,1);
+  }
+
+  .loader-status {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(242,234,219,0.22);
+    z-index: 5;
+    white-space: nowrap;
+    opacity: 0;
+    animation: rJpIn 400ms ease 500ms forwards;
+  }
+
+  .loader-aperture {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .aperture-blade {
+    position: absolute;
+    display: block;
+    background:
+      linear-gradient(90deg, rgba(229,49,25,0.08) 1px, transparent 1px) 0 0 / 32px 32px,
+      var(--ink);
+    border: 2px solid var(--red);
+    box-shadow: 0 0 0 1px rgba(242,234,219,0.08), 18px 18px 0 rgba(229,49,25,0.18);
+    opacity: 0;
+  }
+
+  .blade-1 {
+    left: -14vw;
+    top: -20vh;
+    width: 128vw;
+    height: 42vh;
+    transform: translateY(-120%) skewY(-8deg);
+  }
+
+  .blade-2 {
+    left: -14vw;
+    bottom: -20vh;
+    width: 128vw;
+    height: 42vh;
+    transform: translateY(120%) skewY(-8deg);
+  }
+
+  .blade-3 {
+    left: -24vw;
+    top: -8vh;
+    width: 46vw;
+    height: 116vh;
+    transform: translateX(-120%) skewX(-10deg);
+  }
+
+  .blade-4 {
+    right: -24vw;
+    top: -8vh;
+    width: 46vw;
+    height: 116vh;
+    transform: translateX(120%) skewX(-10deg);
+  }
+
+  .blade-5 {
+    left: 50%;
+    top: 50%;
+    width: min(46vw, 520px);
+    height: min(46vw, 520px);
+    background: var(--red);
+    border-color: var(--paper);
+    box-shadow: 0 0 0 10px var(--ink), 0 0 0 12px var(--red);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  }
+
+  .loader.is-exit {
+    background: var(--ink);
+    animation: loaderVanish 1550ms cubic-bezier(.77,0,.18,1) forwards;
+  }
+
+  .loader.is-exit::before,
+  .loader.is-exit::after {
+    animation: fieldKill 460ms ease forwards;
+  }
+
+  .loader.is-exit > :not(.loader-aperture) {
+    animation: contentDisintegrate 560ms cubic-bezier(.77,0,.18,1) forwards;
+  }
+
+  .loader.is-exit .loader-aperture {
+    opacity: 1;
+  }
+
+  .loader.is-exit .blade-1 {
+    animation: bladeTop 1050ms cubic-bezier(.16,1,.3,1) forwards;
+  }
+
+  .loader.is-exit .blade-2 {
+    animation: bladeBottom 1050ms cubic-bezier(.16,1,.3,1) 40ms forwards;
+  }
+
+  .loader.is-exit .blade-3 {
+    animation: bladeLeft 1080ms cubic-bezier(.16,1,.3,1) 80ms forwards;
+  }
+
+  .loader.is-exit .blade-4 {
+    animation: bladeRight 1080ms cubic-bezier(.16,1,.3,1) 120ms forwards;
+  }
+
+  .loader.is-exit .blade-5 {
+    animation: bladeCore 850ms cubic-bezier(.16,1,.3,1) 110ms forwards;
+  }
+
+  @keyframes fieldKill {
+    to { opacity: 0; }
+  }
+
+  @keyframes contentDisintegrate {
+    0% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: none; }
+    45% { opacity: 0.86; transform: translate3d(-10px, 0, 0) scale(1.015); filter: contrast(1.35); }
+    100% { opacity: 0; transform: translate3d(36px, -18px, 0) scale(0.94) skewX(-12deg); filter: contrast(1.8); }
+  }
+
+  @keyframes bladeTop {
+    0% { opacity: 0; transform: translateY(-120%) skewY(-8deg); }
+    26% { opacity: 1; transform: translateY(0) skewY(-8deg); }
+    62% { opacity: 1; transform: translateY(-8%) skewY(-11deg); }
+    100% { opacity: 1; transform: translateY(-150%) skewY(-14deg); }
+  }
+
+  @keyframes bladeBottom {
+    0% { opacity: 0; transform: translateY(120%) skewY(-8deg); }
+    26% { opacity: 1; transform: translateY(0) skewY(-8deg); }
+    62% { opacity: 1; transform: translateY(8%) skewY(-11deg); }
+    100% { opacity: 1; transform: translateY(150%) skewY(-14deg); }
+  }
+
+  @keyframes bladeLeft {
+    0% { opacity: 0; transform: translateX(-120%) skewX(-10deg); }
+    28% { opacity: 1; transform: translateX(0) skewX(-10deg); }
+    64% { opacity: 1; transform: translateX(-7%) skewX(-14deg); }
+    100% { opacity: 1; transform: translateX(-150%) skewX(-18deg); }
+  }
+
+  @keyframes bladeRight {
+    0% { opacity: 0; transform: translateX(120%) skewX(-10deg); }
+    28% { opacity: 1; transform: translateX(0) skewX(-10deg); }
+    64% { opacity: 1; transform: translateX(7%) skewX(-14deg); }
+    100% { opacity: 1; transform: translateX(150%) skewX(-18deg); }
+  }
+
+  @keyframes bladeCore {
+    0% { opacity: 0; transform: translate(-50%, -50%) rotate(45deg) scale(0); }
+    36% { opacity: 1; transform: translate(-50%, -50%) rotate(45deg) scale(1.35); }
+    58% { opacity: 1; transform: translate(-50%, -50%) rotate(45deg) scale(0.86); }
+    100% { opacity: 0; transform: translate(-50%, -50%) rotate(45deg) scale(0); }
+  }
+
+  @keyframes loaderVanish {
+    0% { opacity: 1; }
+    48% { opacity: 1; }
+    76% { opacity: 0.36; }
+    100% { opacity: 0; }
+  }
+
+  .loader-gone { display: none !important; }
+
+  @media (max-width: 760px) {
+    .loader-jp { display: none; }
+    .loader-kicker { font-size: 0.54rem; letter-spacing: 0.16em; width: calc(100vw - 48px); text-align: center; }
+    .loader-seal { width: 66px; height: 66px; font-size: 2rem; right: 30px; bottom: 78px; }
+    .loader-reveal h1 { font-size: clamp(4rem, 20vw, 7rem); text-shadow: 5px 5px 0 var(--red); }
+    .count-num { font-size: clamp(7.4rem, 34vw, 13rem); line-height: 1.06; padding: 0.18em 0.14em 0.12em; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 1ms !important;
+    }
+
+    body::after {
+      opacity: 0;
+    }
+
+    .motion-ready .floor,
+    .motion-ready .system-card,
+    .motion-ready .stream,
+    .motion-ready .loop-card,
+    .motion-ready .plan-card,
+    .motion-ready .chapter-row,
+    .motion-ready .tracker-row,
+    .motion-ready .mission-card,
+    .motion-ready .queue-card,
+    .motion-ready .node {
+      opacity: 1;
+      transform: none;
+      clip-path: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <div class="loader-flash" id="loaderFlash"></div>
+    <div class="loader-corner loader-tl"></div>
+    <div class="loader-corner loader-tr"></div>
+    <div class="loader-corner loader-bl"></div>
+    <div class="loader-corner loader-br"></div>
+    <div class="loader-hline loader-hline-t"></div>
+    <div class="loader-hline loader-hline-b"></div>
+    <div class="loader-jp loader-jp-l">生物学の基礎</div>
+    <div class="loader-jp loader-jp-r">目標を達成せよ</div>
+    <div class="loader-cut loader-cut-a"></div>
+    <div class="loader-cut loader-cut-b"></div>
+    <div class="loader-kanji">勝</div>
+    <div class="loader-sigil" aria-hidden="true">
+      <span class="sigil-axis"></span>
+      <span class="sigil-axis"></span>
+      <span class="sigil-ring"></span>
+      <span class="sigil-mark"></span>
+    </div>
+    <div class="loader-seal">勝</div>
+    <span class="loader-kicker">三・二・一 / rank mode initializing</span>
+    <div class="loader-count"><span class="count-num" id="countNum"></span></div>
+    <div class="loader-stripe" id="loaderStripe"></div>
+    <div class="loader-reveal" id="loaderReveal">
+      <div>
+        <h1>BIOLOGY<br>MODE</h1>
+        <span class="r-jp">覚醒開始 / NEET ASCENT</span>
+        <span class="r-sub">Foundation locked. Recall armed. Score attack begins.</span>
+        <span class="r-line"></span>
+      </div>
+    </div>
+    <div class="loader-aperture">
+      <span class="aperture-blade blade-1"></span>
+      <span class="aperture-blade blade-2"></span>
+      <span class="aperture-blade blade-3"></span>
+      <span class="aperture-blade blade-4"></span>
+      <span class="aperture-blade blade-5"></span>
+    </div>
+    <div class="loader-progress" id="loaderProgress"></div>
+    <span class="loader-status">NEET BIO MAP / 基礎から始める</span>
+  </div>
+  <script>
+  (function() {
+    var loader = document.getElementById('loader');
+    var seenLoader = false;
+    var replayLoader = false;
+    try {
+      var replayParams = new URLSearchParams(window.location.search);
+      replayLoader = replayParams.get('replay') === '1' || window.location.hash.indexOf('replay') !== -1;
+    } catch (error) {
+      replayLoader = false;
+    }
+    try {
+      seenLoader = sessionStorage.getItem('neet-loader-done') === '1';
+      if (!replayLoader) sessionStorage.setItem('neet-loader-done', '1');
+    } catch (error) {
+      seenLoader = false;
+    }
+    if (seenLoader && !replayLoader) {
+      loader.remove();
+      return;
+    }
+    if (replayLoader) {
+      try { sessionStorage.removeItem('neet-loader-done'); } catch (error) {}
+    }
+    document.body.classList.add('loader-running');
+    document.body.style.overflow = 'hidden';
+    var num = document.getElementById('countNum');
+    var flash = document.getElementById('loaderFlash');
+    var stripe = document.getElementById('loaderStripe');
+    var reveal = document.getElementById('loaderReveal');
+    var prog = document.getElementById('loaderProgress');
+    function hit() {
+      flash.classList.remove('is-hit');
+      void flash.offsetWidth;
+      flash.classList.add('is-hit');
+    }
+    function setNumber(value) {
+      num.textContent = value;
+      num.setAttribute('data-num', value);
+      num.style.display = '';
+      num.className = 'count-num is-slam';
+    }
+    var seq = [
+      [500, function() { setNumber('01'); hit(); prog.style.width = '20%'; }],
+      [1080, function() { num.className = 'count-num is-out'; }],
+      [1250, function() { setNumber('02'); hit(); prog.style.width = '45%'; }],
+      [1830, function() { num.className = 'count-num is-out'; }],
+      [2000, function() { setNumber('03'); hit(); prog.style.width = '70%'; }],
+      [2580, function() { num.className = 'count-num is-out'; }],
+      [2920, function() { stripe.classList.add('is-sweep'); num.style.display = 'none'; prog.style.width = '90%'; }],
+      [3180, function() { reveal.classList.add('is-on'); hit(); prog.style.width = '100%'; }],
+      [4400, function() { loader.classList.add('is-exit'); document.body.style.overflow = ''; }],
+      [4620, function() { document.body.classList.add('loader-enter'); }],
+      [6250, function() { loader.remove(); document.body.classList.remove('loader-running'); }]
+    ];
+    for (var i = 0; i < seq.length; i++) {
+      (function(s) { setTimeout(s[1], s[0]); })(seq[i]);
+    }
+  })();
+  </script>
+  <main class="shell">
+    <header class="topbar">
+      <div><a class="brand" href="#top">NEET MAP</a></div>
+      <div><span class="status">Foundation order / CBSE XI-XII</span></div>
+      <div><span class="tagline">No decoration. Only dependency.</span></div>
+    </header>
+
+    <section class="route-dock" aria-label="Study controls">
+      <div class="route-dock-head">
+        <span>Subject</span>
+        <strong id="routeNameTop">Biology</strong>
+      </div>
+      <div class="deck-controls">
+        <div class="subject-selector" id="subjectSelector" aria-label="Subject selector">
+          <button class="subject-choice" type="button" data-subject="biology" aria-pressed="true"><b>BIO</b><span>Biology</span><small>32</small></button>
+          <button class="subject-choice" type="button" data-subject="physics" aria-pressed="false"><b>PHY</b><span>Physics</span><small>28</small></button>
+          <button class="subject-choice" type="button" data-subject="chemistry" aria-pressed="false"><b>CHEM</b><span>Chemistry</span><small>19</small></button>
+        </div>
+        <div class="route-selector" id="routeSelector" aria-label="Route selector">
+          <button class="route-choice" type="button" data-route="all" aria-pressed="true"><b>00</b><span>Full map</span><em>All floors</em></button>
+          <button class="route-choice" type="button" data-route="route1" aria-pressed="false"><b>01</b><span>Route one</span><em>Foundation</em></button>
+          <button class="route-choice" type="button" data-route="route2" aria-pressed="false"><b>02</b><span>Route two</span><em>Bridge</em></button>
+          <button class="route-choice" type="button" data-route="route3" aria-pressed="false"><b>03</b><span>Route three</span><em>Capstone</em></button>
+        </div>
+      </div>
+      <div class="route-readout">
+        <span>Active spine</span>
+        <strong id="routeReadoutLine">All chapters are visible in foundation-floor order.</strong>
+        <div class="dock-actions">
+          <button class="route-jump" type="button" id="routeJumpButton">View map</button>
+          <button class="class-choice" type="button" data-class-filter="all" aria-pressed="true"><b>ALL</b><span>All</span></button>
+          <button class="class-choice" type="button" data-class-filter="11" aria-pressed="false"><b>XI</b><span>11</span></button>
+          <button class="class-choice" type="button" data-class-filter="12" aria-pressed="false"><b>XII</b><span>12</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero" id="top" data-jp="学習地図">
+      <div class="hero-copy">
+        <div class="hero-kanji" aria-hidden="true">勝</div>
+        <div class="jp-vertical jp-vertical-left" aria-hidden="true">基礎から勝利へ</div>
+        <div class="eyebrow">NEET subjects built like towers</div>
+        <h1>Study <span class="serif">from</span><br><span class="strike">Foundation</span><br>to NEET</h1>
+        <div class="hero-note">
+          <p>This is a chapter linkage map for CBSE Class 11 and 12 Biology, Physics, and Chemistry shaped around NEET-style revision. It does not keep class 11 and 12 separate. It stacks chapters by dependency so each subject has a foundation spine, route map, chapter inventory, and tracker.</p>
+          <div class="hero-stamp">NCERT first<br>NEET aligned<br>Zero fluff</div>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <div class="jp-vertical jp-vertical-right" aria-hidden="true">生物 物理 化学</div>
+        <div class="side-panel">
+          <h2>How to read it</h2>
+          <div class="metric"><strong>01</strong><span>Start from the lowest floor. Never jump into genetics before cell cycle and biomolecules.</span></div>
+          <div class="metric"><strong>02</strong><span>Class 12 chapters appear wherever their Class 11 foundation is ready.</span></div>
+          <div class="metric"><strong>03</strong><span>Click any chapter block to see prerequisites, next chapters, and exam role.</span></div>
+        </div>
+        <nav class="nav-jump" aria-label="Page sections">
+          <a href="#start">Start</a>
+          <a href="#mission">Mission</a>
+          <a href="#map">Map</a>
+          <a href="#routes">Routes</a>
+          <a href="#track">Track</a>
+          <a href="#plan">30 days</a>
+          <a href="#syllabus">Syllabus</a>
+        </nav>
+      </aside>
+    </section>
+
+    <section id="start" aria-labelledby="start-title" data-jp="開始">
+      <div class="section-head">
+        <h2 id="start-title">Start here</h2>
+        <p>The safest beginner route. If the whole syllabus feels huge, follow only these six blocks first and the rest of the map becomes easier to read.</p>
+      </div>
+      <div class="start-panel">
+        <div class="path-strip">
+          <button class="path-step" type="button" data-id="living-world"><b>01</b><span>Living World</span></button>
+          <button class="path-step" type="button" data-id="cell"><b>02</b><span>Cell Unit</span></button>
+          <button class="path-step" type="button" data-id="biomolecules"><b>03</b><span>Biomolecules</span></button>
+          <button class="path-step" type="button" data-id="cell-cycle"><b>04</b><span>Cell Cycle</span></button>
+          <button class="path-step" type="button" data-id="inheritance"><b>05</b><span>Inheritance</span></button>
+          <button class="path-step" type="button" data-id="molecular"><b>06</b><span>Molecular Basis</span></button>
+        </div>
+        <div class="start-brief">
+          <p>This is the foundation spine: language, cell structure, biological molecules, division, inheritance, then DNA-to-protein logic. Use it before touching Biotechnology or deep reproduction revision.</p>
+          <button class="primary-action" id="startPathButton" type="button">Highlight start path</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="map" aria-labelledby="map-title" data-jp="地図">
+      <div class="section-head">
+        <h2 id="map-title">The foundation map</h2>
+        <p>Each floor is a load-bearing layer. The order is not textbook order; it is concept order for understanding and retention.</p>
+      </div>
+      <div class="filters" aria-label="Map filters">
+        <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" data-filter="11" aria-pressed="false">Class 11</button>
+        <button class="filter-btn" data-filter="12" aria-pressed="false">Class 12</button>
+        <button class="filter-btn" data-filter="high" aria-pressed="false">High yield</button>
+        <button class="filter-btn" data-filter="conceptual" aria-pressed="false">Conceptual core</button>
+      </div>
+      <div class="map-wrap">
+        <div class="map" id="chapterMap"></div>
+      </div>
+    </section>
+
+    <section class="detail-grid" aria-live="polite">
+      <article class="detail-card" id="detailCard">
+        <span class="code">Select a block</span>
+        <h2>Click any chapter</h2>
+        <p>The map will show what must be mastered before it, what it unlocks, and why it matters for the selected subject.</p>
+        <div class="detail-meta">
+          <div><b>11+12</b><span>Intermixed</span></div>
+          <div><b>NCERT</b><span>Primary source</span></div>
+        </div>
+      </article>
+      <aside class="link-panel" id="linkPanel">
+        <h3>Dependency view</h3>
+        <div class="route"><strong>Before</strong><div class="chips"><span class="chip">Start with Living World</span></div></div>
+        <div class="route"><strong>After</strong><div class="chips"><span class="chip">Build upward floor by floor</span></div></div>
+        <div class="route"><strong>Exam role</strong><div class="chips"><span class="chip">Concept placement</span><span class="chip">NCERT line retention</span></div></div>
+      </aside>
+    </section>
+
+    <section id="clusters" aria-labelledby="clusters-title" data-jp="体系">
+      <div class="section-head">
+        <h2 id="clusters-title">Chapter clusters</h2>
+        <p>Think in systems, not isolated chapters. Switch subjects from the top navigation to rebuild the same structure for Biology, Physics, or Chemistry.</p>
+      </div>
+      <div class="systems-grid">
+        <article class="system-card"><h3>Cell-gene cluster</h3><p>The engine room of modern Biology.</p><ul><li>Cell, Biomolecules, Cell Cycle</li><li>Inheritance and Molecular Basis</li><li>Biotechnology principles and applications</li></ul></article>
+        <article class="system-card"><h3>Plant function cluster</h3><p>Structure first, then process.</p><ul><li>Morphology, Anatomy, Plant Kingdom</li><li>Photosynthesis and Respiration</li><li>Growth, hormones, flowering plant reproduction</li></ul></article>
+        <article class="system-card"><h3>Human machine cluster</h3><p>Systems become easy when tissues and regulation are clear.</p><ul><li>Animal tissues into physiology</li><li>Breathing, circulation, excretion, movement</li><li>Neural, chemical control, reproduction, health</li></ul></article>
+      </div>
+      <div class="systems-grid">
+        <article class="system-card"><h3>Reproduction cluster</h3><p>Meiosis, hormones, gametes, fertilisation, and health.</p><ul><li>Cell Cycle before gametogenesis</li><li>Plant and human reproduction together</li><li>Reproductive health after mechanisms</li></ul></article>
+        <article class="system-card"><h3>Ecology cluster</h3><p>The final scale-up from organism to biosphere.</p><ul><li>Evolution before biodiversity logic</li><li>Organisms and populations before ecosystem</li><li>Conservation after ecosystem stability</li></ul></article>
+        <article class="system-card"><h3>Applied biology cluster</h3><p>Where NEET asks direct NCERT applications.</p><ul><li>Microbes in welfare</li><li>Human health and disease</li><li>Biotechnology and ethics</li></ul></article>
+      </div>
+    </section>
+
+    <section id="warnings" aria-labelledby="warnings-title" data-jp="注意">
+      <div class="section-head">
+        <h2 id="warnings-title">Warning system</h2>
+        <p>Use these labels as study alarms. They tell you how a chapter usually punishes careless preparation.</p>
+      </div>
+      <div class="systems-grid">
+        <article class="system-card"><h3>Do not memorize first</h3><p>For Cell Cycle, Genetics, Molecular Basis, Photosynthesis, Respiration, and Human Physiology, understand the mechanism before memorising lines.</p><ul><li>Draw flow first</li><li>Explain without book</li><li>Then lock NCERT wording</li></ul></article>
+        <article class="system-card"><h3>Diagram must be mastered</h3><p>Flowering plant reproduction, anatomy, cell organelles, human reproduction, nephron, heart, and biotechnology tools need diagram recall.</p><ul><li>Redraw from memory</li><li>Label fast</li><li>Attach PYQs</li></ul></article>
+        <article class="system-card"><h3>NCERT table trap</h3><p>Animal Kingdom, Plant Kingdom, hormones, microbes, diseases, biodiversity, and ecology examples punish vague reading.</p><ul><li>Tables are questions</li><li>Examples are answers</li><li>One word can change the option</li></ul></article>
+      </div>
+    </section>
+
+    <section id="routes" aria-labelledby="routes-title" data-jp="道筋">
+      <div class="section-head">
+        <h2 id="routes-title">Three clean routes</h2>
+        <p>Use these as revision highways after the first full map pass. They intentionally mix class 11 and class 12.</p>
+      </div>
+      <div class="streams">
+        <article class="stream">
+          <h3>Cell to gene route</h3>
+          <ol>
+            <li>Biomolecules for enzymes, nucleic acids, proteins, and metabolic logic.</li>
+            <li>Cell: The Unit of Life for organelles, membranes, ribosomes, nucleus.</li>
+            <li>Cell Cycle and Cell Division for mitosis, meiosis, recombination base.</li>
+            <li>Principles of Inheritance and Variation for crosses, linkage, disorders.</li>
+            <li>Molecular Basis of Inheritance for DNA, RNA, replication, transcription, translation.</li>
+            <li>Biotechnology chapters for tools, vectors, PCR, applications, ethics.</li>
+          </ol>
+        </article>
+        <article class="stream">
+          <h3>Form to function route</h3>
+          <ol>
+            <li>Plant Kingdom and Animal Kingdom to know body plans and major groups.</li>
+            <li>Morphology and Anatomy of Flowering Plants to connect tissue to organ.</li>
+            <li>Structural Organisation in Animals for epithelial, connective, muscle, neural tissues.</li>
+            <li>Plant physiology for photosynthesis, respiration, and growth regulation.</li>
+            <li>Human physiology systems as applied structure-function biology.</li>
+            <li>Reproduction chapters after tissues, hormones, meiosis, and genetics are stable.</li>
+          </ol>
+        </article>
+        <article class="stream">
+          <h3>Organism to ecology route</h3>
+          <ol>
+            <li>The Living World and Biological Classification build naming and grouping language.</li>
+            <li>Evolution explains variation, selection, speciation, and phylogeny logic.</li>
+            <li>Organisms and Populations scales biology from individual to environment.</li>
+            <li>Ecosystem connects energy flow, productivity, decomposition, nutrient cycles.</li>
+            <li>Biodiversity and Conservation gives hotspots, extinction, protection strategies.</li>
+            <li>Human Health, Microbes, and Biotechnology connect biology to real-world intervention.</li>
+          </ol>
+        </article>
+      </div>
+      <div class="loop-board">
+        <div class="loop-card"><b>Cell loop</b><span>Cell Cycle ↔ Genetics ↔ Reproduction</span></div>
+        <div class="loop-card"><b>Energy loop</b><span>Photosynthesis ↔ Respiration ↔ Ecosystem</span></div>
+        <div class="loop-card"><b>Control loop</b><span>Neural Control ↔ Chemical Coordination ↔ Human Reproduction</span></div>
+      </div>
+    </section>
+
+    <section id="plan" aria-labelledby="plan-title" data-jp="計画">
+      <div class="section-head">
+        <h2 id="plan-title">30-day route</h2>
+        <p>A compressed revision order for students who already know the syllabus once and need structure before NEET-style practice.</p>
+      </div>
+      <div class="plan-grid">
+        <article class="plan-card"><b>Days 01-07</b><p>Foundation, classification, plant and animal body plan, cell, biomolecules, cell cycle. End with one mixed PYQ set.</p></article>
+        <article class="plan-card"><b>Days 08-15</b><p>Plant physiology plus full human physiology. Daily diagram redraw: nephron, heart, neuron, endocrine axis.</p></article>
+        <article class="plan-card"><b>Days 16-23</b><p>Reproduction, genetics, molecular basis, evolution, biotech. Keep a separate mistake sheet for crosses and processes.</p></article>
+        <article class="plan-card"><b>Days 24-30</b><p>Health, microbes, ecology, biodiversity, full NCERT table revision, mock analysis, and weak-chapter repair.</p></article>
+      </div>
+    </section>
+
+    <section id="recall" aria-labelledby="recall-title" data-jp="記憶">
+      <div class="section-head">
+        <h2 id="recall-title">Active recall prompts</h2>
+        <p>Do not only reread. Every chapter should pass these checks before it is marked as revised.</p>
+      </div>
+      <div class="systems-grid">
+        <article class="system-card"><h3>Explain</h3><p>Close NCERT and explain the chapter’s core process in 90 seconds.</p><ul><li>What starts the process?</li><li>What changes step by step?</li><li>Where does NEET set traps?</li></ul></article>
+        <article class="system-card"><h3>Draw</h3><p>Redraw every important diagram, cycle, graph, table, and pathway from memory.</p><ul><li>Labels without hints</li><li>Sequence without gaps</li><li>Examples attached to each structure</li></ul></article>
+        <article class="system-card"><h3>Attack PYQs</h3><p>Only after meaning and NCERT lines are stable, solve PYQs and tag every mistake.</p><ul><li>Concept error</li><li>Memory error</li><li>Question-reading error</li></ul></article>
+      </div>
+    </section>
+
+    <section id="syllabus" aria-labelledby="syllabus-title" data-jp="章一覧">
+      <div class="section-head">
+        <h2 id="syllabus-title">Chapter inventory</h2>
+        <p>The inventory follows current NCERT-style CBSE Class 11 and 12 Biology coverage commonly used for NEET preparation.</p>
+      </div>
+      <div class="syllabus">
+        <article class="class-block">
+          <h3>Class XI</h3>
+          <div class="chapter-list" id="class11List"></div>
+        </article>
+        <article class="class-block">
+          <h3>Class XII</h3>
+          <div class="chapter-list" id="class12List"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="mission" aria-labelledby="mission-title" data-jp="任務">
+      <div class="section-head">
+        <h2 id="mission-title">Daily mission</h2>
+        <p>Auto-built from your active subject, mastery data, and pinned revision queue. Use it as today’s compact attack board.</p>
+      </div>
+      <div class="mission-board">
+        <article class="mission-card">
+          <h3>Today</h3>
+          <div class="mission-list" id="dailyMission"></div>
+          <button class="command-launch" type="button" id="commandLaunch">Search / command</button>
+        </article>
+        <article class="queue-card">
+          <h3>Revision queue</h3>
+          <div class="queue-list" id="revisionQueuePanel"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="track" aria-labelledby="track-title" data-jp="進捗">
+      <div class="section-head">
+        <h2 id="track-title">Completion tracker</h2>
+        <p>Mark progress chapter by chapter. Your status is saved in this browser so the map becomes a working study board.</p>
+      </div>
+      <div class="tracker">
+        <div class="tracker-board" id="trackerBoard"></div>
+      </div>
+    </section>
+
+    <section id="exam" aria-labelledby="exam-title" data-jp="試験">
+      <div class="section-head">
+        <h2 id="exam-title">Exam lens</h2>
+        <p>NEET rewards NCERT precision and route discipline. This map is for sequence; your score still comes from line-by-line revision, diagrams, formulas, reactions, examples, and PYQs.</p>
+      </div>
+      <div class="exam-band">
+        <div class="exam-card"><b>Priority</b><p>Human Physiology, Genetics, Molecular Basis, Reproduction, Ecology, Biotechnology, and Plant Physiology usually demand repeated revision.</p></div>
+        <div class="exam-card"><b>Method</b><p>Read NCERT once for meaning, second for underlines, third for tables and examples, then attach PYQs to every chapter block.</p></div>
+        <div class="exam-card"><b>Rule</b><p>If a Class 12 topic feels hard, trace it down to its Class 11 foundation instead of memorising blindly.</p></div>
+        <div class="exam-card"><b>Score strategy</b><p>This map decides what to study before what. Your score still comes from NCERT line accuracy, diagrams, examples, PYQs, and ruthless mistake correction.</p></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <strong>Build the base. Then climb.</strong>
+      <span>Designed as a stark study map: no glass, no blur, no decorative fog.</span>
+    </footer>
+  </main>
+  <div class="command-palette" id="commandPalette" role="dialog" aria-modal="true">
+    <div class="command-box">
+      <input id="commandInput" type="search" placeholder="Search chapters, sections, revision queue..." autocomplete="off">
+      <div class="command-results" id="commandResults"></div>
+    </div>
+  </div>
+  <div class="page-transition" id="pageTransition">MAP</div>
+<script src="data.js"></script>
+<script>
+  const floors = [
+    {
+      level: '00',
+      name: 'Language of life',
+      chapters: [
+        { id: 'living-world', code: 'XI-01', class: '11', yield: 'medium', type: 'conceptual', title: 'The Living World', note: 'Life, taxonomy, nomenclature, taxonomical aids.', before: ['None'], after: ['Biological Classification', 'Plant Kingdom', 'Animal Kingdom'], role: ['Terminology base', 'NCERT definitions'] },
+        { id: 'classification', code: 'XI-02', class: '11', yield: 'high', type: 'conceptual', title: 'Biological Classification', note: 'Kingdoms, microbes, viruses, lichens.', before: ['The Living World'], after: ['Plant Kingdom', 'Animal Kingdom', 'Microbes in Human Welfare'], role: ['Memory heavy', 'Examples and tables'] }
+      ]
+    },
+    {
+      level: '01',
+      name: 'Body plan base',
+      chapters: [
+        { id: 'plant-kingdom', code: 'XI-03', class: '11', yield: 'medium', type: 'conceptual', title: 'Plant Kingdom', note: 'Algae to angiosperms, life cycles, alternation.', before: ['Biological Classification'], after: ['Morphology of Flowering Plants', 'Sexual Reproduction in Flowering Plants', 'Evolution'], role: ['Examples', 'Life cycles'] },
+        { id: 'animal-kingdom', code: 'XI-04', class: '11', yield: 'high', type: 'conceptual', title: 'Animal Kingdom', note: 'Phyla features, body symmetry, coelom, chordates.', before: ['Biological Classification'], after: ['Structural Organisation in Animals', 'Human Physiology', 'Evolution'], role: ['Comparative facts', 'NCERT tables'] },
+        { id: 'morphology', code: 'XI-05', class: '11', yield: 'medium', type: 'memory', title: 'Morphology of Flowering Plants', note: 'Root, stem, leaf, flower, fruit, seed.', before: ['Plant Kingdom'], after: ['Anatomy of Flowering Plants', 'Sexual Reproduction in Flowering Plants'], role: ['Diagrams', 'Families'] }
+      ]
+    },
+    {
+      level: '02',
+      name: 'Tissue and cell base',
+      chapters: [
+        { id: 'anatomy', code: 'XI-06', class: '11', yield: 'medium', type: 'conceptual', title: 'Anatomy of Flowering Plants', note: 'Meristems, tissues, anatomy of root, stem, leaf.', before: ['Morphology of Flowering Plants'], after: ['Photosynthesis', 'Respiration in Plants', 'Plant Growth and Development'], role: ['Diagram based', 'Tissue logic'] },
+        { id: 'animal-tissue', code: 'XI-07', class: '11', yield: 'medium', type: 'conceptual', title: 'Structural Organisation in Animals', note: 'Animal tissues, frog morphology and anatomy.', before: ['Animal Kingdom'], after: ['Human Physiology'], role: ['Tissue foundation', 'Applied anatomy'] },
+        { id: 'cell', code: 'XI-08', class: '11', yield: 'high', type: 'conceptual', title: 'Cell: The Unit of Life', note: 'Cell theory, prokaryotes, eukaryotic organelles.', before: ['Biological Classification'], after: ['Biomolecules', 'Cell Cycle', 'Molecular Basis of Inheritance'], role: ['Core concept', 'Organelle facts'] },
+        { id: 'biomolecules', code: 'XI-09', class: '11', yield: 'high', type: 'conceptual', title: 'Biomolecules', note: 'Carbohydrates, proteins, lipids, enzymes, nucleic acids.', before: ['Cell: The Unit of Life'], after: ['Photosynthesis', 'Respiration', 'Molecular Basis', 'Biotechnology'], role: ['Enzyme logic', 'Molecular vocabulary'] }
+      ]
+    },
+    {
+      level: '03',
+      name: 'Division and inheritance',
+      chapters: [
+        { id: 'cell-cycle', code: 'XI-10', class: '11', yield: 'high', type: 'conceptual', title: 'Cell Cycle and Cell Division', note: 'Mitosis, meiosis, checkpoints, gamete formation base.', before: ['Cell: The Unit of Life', 'Biomolecules'], after: ['Principles of Inheritance', 'Human Reproduction', 'Sexual Reproduction in Flowering Plants'], role: ['Meiosis base', 'Genetics prerequisite'] },
+        { id: 'inheritance', code: 'XII-04', class: '12', yield: 'high', type: 'conceptual', title: 'Principles of Inheritance and Variation', note: 'Mendelism, linkage, sex determination, disorders.', before: ['Cell Cycle and Cell Division'], after: ['Molecular Basis of Inheritance', 'Evolution', 'Reproductive Health'], role: ['Numericals', 'Pedigree logic'] },
+        { id: 'molecular', code: 'XII-05', class: '12', yield: 'high', type: 'conceptual', title: 'Molecular Basis of Inheritance', note: 'DNA, RNA, replication, transcription, translation, regulation.', before: ['Biomolecules', 'Cell', 'Principles of Inheritance'], after: ['Biotechnology: Principles and Processes', 'Evolution'], role: ['High yield', 'Process accuracy'] }
+      ]
+    },
+    {
+      level: '04',
+      name: 'Energy and plant control',
+      chapters: [
+        { id: 'photosynthesis', code: 'XI-11', class: '11', yield: 'high', type: 'conceptual', title: 'Photosynthesis in Higher Plants', note: 'Pigments, light reaction, Calvin cycle, C4 pathway.', before: ['Anatomy', 'Biomolecules'], after: ['Ecosystem', 'Plant Growth and Development'], role: ['Process diagrams', 'Pathway comparison'] },
+        { id: 'plant-respiration', code: 'XI-12', class: '11', yield: 'medium', type: 'conceptual', title: 'Respiration in Plants', note: 'Glycolysis, Krebs cycle, ETS, fermentation, RQ.', before: ['Biomolecules', 'Cell'], after: ['Ecosystem', 'Human Physiology metabolism links'], role: ['Pathway logic', 'Energy accounting'] },
+        { id: 'plant-growth', code: 'XI-13', class: '11', yield: 'medium', type: 'memory', title: 'Plant Growth and Development', note: 'Growth curves, hormones, photoperiodism, vernalisation.', before: ['Anatomy', 'Photosynthesis'], after: ['Sexual Reproduction in Flowering Plants'], role: ['Hormones', 'NCERT lines'] },
+        { id: 'flower-reproduction', code: 'XII-01', class: '12', yield: 'high', type: 'conceptual', title: 'Sexual Reproduction in Flowering Plants', note: 'Flower, gametophytes, pollination, fertilisation, seed.', before: ['Morphology', 'Plant Kingdom', 'Cell Division'], after: ['Principles of Inheritance', 'Biotechnology Applications'], role: ['Diagrams', 'Process sequence'] }
+      ]
+    },
+    {
+      level: '05',
+      name: 'Human machine',
+      chapters: [
+        { id: 'breathing', code: 'XI-14', class: '11', yield: 'high', type: 'conceptual', title: 'Breathing and Exchange of Gases', note: 'Respiratory organs, transport of gases, regulation.', before: ['Animal tissues', 'Biomolecules'], after: ['Body Fluids and Circulation'], role: ['Graphs', 'Mechanism'] },
+        { id: 'circulation', code: 'XI-15', class: '11', yield: 'high', type: 'conceptual', title: 'Body Fluids and Circulation', note: 'Blood, lymph, heart, cardiac cycle, ECG.', before: ['Animal tissues'], after: ['Excretion', 'Human Health and Disease'], role: ['Mechanism', 'Disorders'] },
+        { id: 'excretion', code: 'XI-16', class: '11', yield: 'high', type: 'conceptual', title: 'Excretory Products and Elimination', note: 'Nephron, urine formation, osmoregulation, disorders.', before: ['Body Fluids and Circulation'], after: ['Chemical Coordination'], role: ['Nephron logic', 'Hormonal regulation'] },
+        { id: 'locomotion', code: 'XI-17', class: '11', yield: 'medium', type: 'memory', title: 'Locomotion and Movement', note: 'Muscle contraction, skeleton, joints, disorders.', before: ['Animal tissues'], after: ['Neural Control and Coordination'], role: ['Mechanism', 'Disorders'] },
+        { id: 'neural', code: 'XI-18', class: '11', yield: 'high', type: 'conceptual', title: 'Neural Control and Coordination', note: 'Neuron, impulse, synapse, CNS, sense organs.', before: ['Cell membrane', 'Animal tissues'], after: ['Chemical Coordination', 'Human Reproduction'], role: ['Impulse mechanism', 'Diagrams'] },
+        { id: 'chemical', code: 'XI-19', class: '11', yield: 'high', type: 'memory', title: 'Chemical Coordination and Integration', note: 'Endocrine glands, hormones, feedback regulation.', before: ['Neural Control', 'Excretion'], after: ['Human Reproduction', 'Reproductive Health'], role: ['Hormone tables', 'Feedback loops'] }
+      ]
+    },
+    {
+      level: '06',
+      name: 'Reproduction and health',
+      chapters: [
+        { id: 'human-reproduction', code: 'XII-02', class: '12', yield: 'high', type: 'conceptual', title: 'Human Reproduction', note: 'Gametogenesis, menstrual cycle, fertilisation, pregnancy.', before: ['Cell Division', 'Chemical Coordination'], after: ['Reproductive Health', 'Principles of Inheritance'], role: ['Hormonal sequence', 'Diagrams'] },
+        { id: 'reproductive-health', code: 'XII-03', class: '12', yield: 'high', type: 'memory', title: 'Reproductive Health', note: 'Contraception, STIs, infertility, ART, MTP.', before: ['Human Reproduction'], after: ['Human Health and Disease'], role: ['Direct NCERT', 'Public health facts'] },
+        { id: 'human-health', code: 'XII-07', class: '12', yield: 'high', type: 'memory', title: 'Human Health and Disease', note: 'Immunity, diseases, AIDS, cancer, drugs and alcohol.', before: ['Body Fluids', 'Microbes', 'Molecular Basis'], after: ['Biotechnology Applications'], role: ['Examples', 'Immunity flow'] },
+        { id: 'microbes', code: 'XII-08', class: '12', yield: 'medium', type: 'memory', title: 'Microbes in Human Welfare', note: 'Industrial products, sewage, biogas, biocontrol, biofertilisers.', before: ['Biological Classification'], after: ['Biotechnology Applications', 'Ecosystem'], role: ['Examples', 'Applications'] }
+      ]
+    },
+    {
+      level: '07',
+      name: 'Change and tools',
+      chapters: [
+        { id: 'evolution', code: 'XII-06', class: '12', yield: 'high', type: 'conceptual', title: 'Evolution', note: 'Origin, evidences, Hardy-Weinberg, human evolution.', before: ['Classification', 'Genetics', 'Molecular Basis'], after: ['Biodiversity and Conservation'], role: ['Conceptual', 'Chronology'] },
+        { id: 'biotech-principles', code: 'XII-09', class: '12', yield: 'high', type: 'conceptual', title: 'Biotechnology: Principles and Processes', note: 'DNA tools, enzymes, vectors, PCR, cloning, bioreactors.', before: ['Molecular Basis', 'Biomolecules'], after: ['Biotechnology and its Applications'], role: ['Tool sequence', 'Diagram facts'] },
+        { id: 'biotech-applications', code: 'XII-10', class: '12', yield: 'high', type: 'memory', title: 'Biotechnology and its Applications', note: 'GM crops, insulin, gene therapy, molecular diagnosis, ethics.', before: ['Biotech Principles', 'Human Health'], after: ['Final applied revision'], role: ['Applications', 'Examples'] }
+      ]
+    },
+    {
+      level: '08',
+      name: 'Ecology capstone',
+      chapters: [
+        { id: 'organisms-populations', code: 'XII-11', class: '12', yield: 'high', type: 'conceptual', title: 'Organisms and Populations', note: 'Adaptations, population growth, interactions.', before: ['Evolution', 'Animal Kingdom', 'Plant Kingdom'], after: ['Ecosystem'], role: ['Graphs', 'Interactions'] },
+        { id: 'ecosystem', code: 'XII-12', class: '12', yield: 'high', type: 'conceptual', title: 'Ecosystem', note: 'Productivity, decomposition, energy flow, ecological pyramids.', before: ['Photosynthesis', 'Respiration', 'Organisms and Populations'], after: ['Biodiversity and Conservation'], role: ['Cycles', 'Energy flow'] },
+        { id: 'biodiversity', code: 'XII-13', class: '12', yield: 'high', type: 'memory', title: 'Biodiversity and Conservation', note: 'Patterns, loss, hotspots, in-situ and ex-situ conservation.', before: ['Evolution', 'Ecosystem'], after: ['Final ecology revision'], role: ['NCERT data', 'Examples'] }
+      ]
+    }
+  ];
+
+  const chapterMap = document.querySelector('#chapterMap');
+  const detailCard = document.querySelector('#detailCard');
+  const linkPanel = document.querySelector('#linkPanel');
+  const class11List = document.querySelector('#class11List');
+  const class12List = document.querySelector('#class12List');
+  const trackerBoard = document.querySelector('#trackerBoard');
+  const startPathButton = document.querySelector('#startPathButton');
+  const filters = document.querySelectorAll('.filter-btn');
+  const routeButtons = document.querySelectorAll('.route-choice');
+  const subjectButtons = document.querySelectorAll('.subject-choice');
+  const classButtons = document.querySelectorAll('.class-choice');
+  const routeNameTop = document.querySelector('#routeNameTop');
+  const routeReadoutLine = document.querySelector('#routeReadoutLine');
+  const routeJumpButton = document.querySelector('#routeJumpButton');
+  const dailyMission = document.querySelector('#dailyMission');
+  const revisionQueuePanel = document.querySelector('#revisionQueuePanel');
+  const commandLaunch = document.querySelector('#commandLaunch');
+  const commandPalette = document.querySelector('#commandPalette');
+  const commandInput = document.querySelector('#commandInput');
+  const commandResults = document.querySelector('#commandResults');
+  const pageTransition = document.querySelector('#pageTransition');
+  const trackerStates = ['Read once', 'Revised', 'PYQs done', 'Mistakes fixed'];
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+  const motionSelector = [
+    '.floor',
+    '.node',
+    '.system-card',
+    '.stream',
+    '.loop-card',
+    '.plan-card',
+    '.chapter-row',
+    '.tracker-row',
+    '.mission-card',
+    '.queue-card'
+  ].join(',');
+  let switchTimer = 0;
+  let revealObserver = null;
+
+  function initPointerSpotlight() {
+    if (reduceMotion || !finePointer) return;
+    let raf = 0;
+    window.addEventListener('pointermove', event => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        document.body.style.setProperty('--mx', event.clientX + 'px');
+        document.body.style.setProperty('--my', event.clientY + 'px');
+        raf = 0;
+      });
+    }, { passive: true });
+  }
+
+  function initMotionObserver() {
+    if (reduceMotion) return;
+    document.body.classList.add('motion-ready');
+    if (!('IntersectionObserver' in window)) return;
+    revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-seen');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  }
+
+  function primeMotion(root = document) {
+    if (reduceMotion) return;
+    if (!document.body.classList.contains('motion-ready')) document.body.classList.add('motion-ready');
+    const elements = Array.from(root.querySelectorAll(motionSelector));
+    elements.forEach((element, index) => {
+      if (element.dataset.motionReady === '1') return;
+      element.dataset.motionReady = '1';
+      element.style.setProperty('--motion-index', String(index % 9));
+      if (revealObserver) revealObserver.observe(element);
+      else element.classList.add('is-seen');
+    });
+  }
+
+  function playSwitchAnimation() {
+    if (reduceMotion) return;
+    window.clearTimeout(switchTimer);
+    document.body.classList.remove('is-switching');
+    void document.body.offsetWidth;
+    document.body.classList.add('is-switching');
+    switchTimer = window.setTimeout(() => document.body.classList.remove('is-switching'), 780);
+  }
+  let activeFilter = 'all';
+  let activeRoute = 'all';
+  let activeSubject = 'biology';
+  const focusByType = {
+    conceptual: ['Definitions', 'Process flow', 'Diagrams', 'PYQ logic'],
+    memory: ['NCERT tables', 'Examples', 'One-line facts', 'Repeated recall']
+  };
+  const warningByType = {
+    conceptual: 'Do not memorize before understanding',
+    memory: 'NCERT table trap'
+  };
+  const difficultyByType = {
+    conceptual: 'Concept heavy',
+    memory: 'Easy memory'
+  };
+  const pyqByYield = {
+    high: 'Very high PYQ',
+    medium: 'Moderate PYQ'
+  };
+  const recallByType = {
+    conceptual: ['Can you explain the process without NCERT?', 'Can you redraw the flow or diagram?', 'Can you solve PYQs without checking theory?'],
+    memory: ['Can you recall all NCERT examples?', 'Can you reproduce the table or list?', 'Can you identify option traps quickly?']
+  };
+  const stuckGuide = {
+    inheritance: ['Cell Cycle and Cell Division', 'Meiosis', 'Basic probability'],
+    molecular: ['Biomolecules', 'Cell nucleus', 'Inheritance vocabulary'],
+    'biotech-principles': ['Molecular Basis', 'Enzymes', 'Plasmids and bacteria'],
+    'biotech-applications': ['Biotech Principles', 'Human Health and Disease'],
+    'human-reproduction': ['Cell Division', 'Endocrine hormones'],
+    'flower-reproduction': ['Morphology', 'Plant Kingdom', 'Cell Division'],
+    ecosystem: ['Photosynthesis', 'Respiration', 'Organisms and Populations'],
+    biodiversity: ['Evolution', 'Ecosystem']
+  };
+  const chapterTopics = {
+    'living-world': [
+      { title: 'Life and diversity', subs: ['Characteristics of living organisms', 'Growth, reproduction, metabolism, consciousness', 'Biodiversity as the base problem'] },
+      { title: 'Taxonomy', subs: ['Identification', 'Nomenclature', 'Classification', 'Binomial naming rules'] },
+      { title: 'Taxonomic hierarchy', subs: ['Species', 'Genus', 'Family', 'Order', 'Class', 'Phylum or division', 'Kingdom'] },
+      { title: 'Taxonomical aids', subs: ['Herbarium', 'Botanical gardens', 'Museum', 'Zoological parks', 'Keys'] }
+    ],
+    classification: [
+      { title: 'Classification systems', subs: ['Need for classification', 'Two kingdom limits', 'Five kingdom system', 'Criteria used by Whittaker'] },
+      { title: 'Kingdom Monera', subs: ['Bacteria forms', 'Archaebacteria', 'Eubacteria', 'Cyanobacteria', 'Mycoplasma'] },
+      { title: 'Protista and Fungi', subs: ['Chrysophytes', 'Dinoflagellates', 'Euglenoids', 'Slime moulds', 'Protozoans', 'Fungal classes'] },
+      { title: 'Acellular forms', subs: ['Viruses', 'Viroids', 'Prions', 'Lichens'] }
+    ],
+    'plant-kingdom': [
+      { title: 'Algae', subs: ['Chlorophyceae', 'Phaeophyceae', 'Rhodophyceae', 'Pigments', 'Stored food', 'Reproduction'] },
+      { title: 'Bryophytes and pteridophytes', subs: ['Liverworts', 'Mosses', 'Vascular cryptogams', 'Homosporous and heterosporous forms'] },
+      { title: 'Seed plants', subs: ['Gymnosperms', 'Angiosperms', 'Dicots and monocots', 'Double fertilisation'] },
+      { title: 'Life cycles', subs: ['Haplontic', 'Diplontic', 'Haplo-diplontic', 'Alternation of generations'] }
+    ],
+    'animal-kingdom': [
+      { title: 'Basis of classification', subs: ['Levels of organisation', 'Symmetry', 'Diploblastic and triploblastic', 'Coelom', 'Segmentation', 'Notochord'] },
+      { title: 'Non-chordates', subs: ['Porifera', 'Cnidaria', 'Ctenophora', 'Platyhelminthes', 'Aschelminthes', 'Annelida', 'Arthropoda', 'Mollusca', 'Echinodermata', 'Hemichordata'] },
+      { title: 'Chordates', subs: ['Protochordates', 'Cyclostomata', 'Chondrichthyes', 'Osteichthyes', 'Amphibia', 'Reptilia', 'Aves', 'Mammalia'] },
+      { title: 'Comparison traps', subs: ['Examples', 'Unique features', 'Body cavity', 'Respiration', 'Circulation', 'Reproduction'] }
+    ],
+    morphology: [
+      { title: 'Root and stem', subs: ['Root regions', 'Tap and fibrous roots', 'Root modifications', 'Stem modifications'] },
+      { title: 'Leaf', subs: ['Leaf parts', 'Venation', 'Phyllotaxy', 'Leaf modifications'] },
+      { title: 'Flower and inflorescence', subs: ['Racemose and cymose', 'Calyx', 'Corolla', 'Androecium', 'Gynoecium', 'Aestivation', 'Placentation'] },
+      { title: 'Fruit, seed, families', subs: ['Fruit types', 'Seed structure', 'Fabaceae', 'Solanaceae', 'Liliaceae'] }
+    ],
+    anatomy: [
+      { title: 'Plant tissues', subs: ['Meristematic tissues', 'Simple permanent tissues', 'Complex permanent tissues', 'Xylem', 'Phloem'] },
+      { title: 'Tissue systems', subs: ['Epidermal system', 'Ground tissue system', 'Vascular tissue system'] },
+      { title: 'Internal anatomy', subs: ['Dicot root', 'Monocot root', 'Dicot stem', 'Monocot stem', 'Dorsiventral leaf', 'Isobilateral leaf'] },
+      { title: 'Secondary growth', subs: ['Vascular cambium', 'Cork cambium', 'Annual rings', 'Heartwood and sapwood'] }
+    ],
+    'animal-tissue': [
+      { title: 'Animal tissues', subs: ['Epithelial tissue', 'Connective tissue', 'Muscular tissue', 'Neural tissue'] },
+      { title: 'Epithelial and connective', subs: ['Simple epithelium', 'Compound epithelium', 'Loose connective', 'Dense connective', 'Specialised connective'] },
+      { title: 'Muscle and nerve', subs: ['Skeletal muscle', 'Smooth muscle', 'Cardiac muscle', 'Neuron structure', 'Neuroglia'] },
+      { title: 'Frog', subs: ['Morphology', 'Digestive system', 'Circulatory system', 'Respiratory system', 'Urinogenital system'] }
+    ],
+    cell: [
+      { title: 'Cell theory and types', subs: ['Cell theory', 'Prokaryotic cells', 'Eukaryotic cells', 'Cell size and shape'] },
+      { title: 'Cell envelope', subs: ['Cell membrane', 'Fluid mosaic model', 'Transport across membrane', 'Cell wall', 'Glycocalyx'] },
+      { title: 'Cytoplasmic organelles', subs: ['Endoplasmic reticulum', 'Golgi apparatus', 'Lysosomes', 'Vacuoles', 'Mitochondria', 'Plastids', 'Ribosomes'] },
+      { title: 'Nucleus and cytoskeleton', subs: ['Nuclear envelope', 'Chromatin', 'Nucleolus', 'Cilia and flagella', 'Centrosome and centrioles'] }
+    ],
+    biomolecules: [
+      { title: 'Chemical analysis', subs: ['Primary metabolites', 'Secondary metabolites', 'Ash analysis', 'Elemental composition'] },
+      { title: 'Biomolecule classes', subs: ['Carbohydrates', 'Lipids', 'Amino acids', 'Proteins', 'Nucleotides', 'Nucleic acids'] },
+      { title: 'Protein and enzyme logic', subs: ['Protein structure levels', 'Enzyme action', 'Activation energy', 'Factors affecting enzymes', 'Inhibition'] },
+      { title: 'Metabolism', subs: ['Anabolism', 'Catabolism', 'Metabolic pathways', 'ATP as energy currency'] }
+    ],
+    'cell-cycle': [
+      { title: 'Cell cycle', subs: ['Interphase', 'G1 phase', 'S phase', 'G2 phase', 'M phase', 'Quiescent stage'] },
+      { title: 'Mitosis', subs: ['Prophase', 'Metaphase', 'Anaphase', 'Telophase', 'Cytokinesis', 'Significance'] },
+      { title: 'Meiosis', subs: ['Meiosis I', 'Meiosis II', 'Prophase I substages', 'Crossing over', 'Reduction division'] },
+      { title: 'NEET traps', subs: ['Chromosome number', 'DNA content', 'Synapsis', 'Chiasmata', 'Gamete formation'] }
+    ],
+    inheritance: [
+      { title: 'Mendelian genetics', subs: ['Monohybrid cross', 'Dihybrid cross', 'Law of dominance', 'Law of segregation', 'Independent assortment'] },
+      { title: 'Extensions', subs: ['Incomplete dominance', 'Co-dominance', 'Multiple alleles', 'Pleiotropy', 'Polygenic inheritance'] },
+      { title: 'Chromosomal inheritance', subs: ['Linkage', 'Recombination', 'Morgan experiments', 'Sex determination'] },
+      { title: 'Human disorders', subs: ['Pedigree analysis', 'Mendelian disorders', 'Chromosomal disorders', 'Haemophilia', 'Thalassemia', 'Down syndrome'] }
+    ],
+    molecular: [
+      { title: 'Genetic material', subs: ['DNA as genetic material', 'RNA world', 'DNA structure', 'Packaging of DNA'] },
+      { title: 'Central dogma', subs: ['Replication', 'Transcription', 'Genetic code', 'Translation', 'tRNA charging'] },
+      { title: 'Gene regulation', subs: ['Operon concept', 'Lac operon', 'Inducer', 'Repressor', 'Regulatory gene'] },
+      { title: 'Human genome and fingerprinting', subs: ['HGP goals', 'Salient findings', 'VNTR', 'DNA fingerprinting steps'] }
+    ],
+    photosynthesis: [
+      { title: 'Photosynthetic apparatus', subs: ['Chloroplast', 'Pigments', 'Absorption spectrum', 'Action spectrum', 'Photosystems'] },
+      { title: 'Light reaction', subs: ['Photolysis', 'Electron transport', 'Cyclic photophosphorylation', 'Non-cyclic photophosphorylation', 'ATP and NADPH'] },
+      { title: 'Carbon fixation', subs: ['Calvin cycle', 'C3 plants', 'C4 pathway', 'Photorespiration'] },
+      { title: 'Limiting factors', subs: ['Light', 'Carbon dioxide', 'Temperature', 'Water', 'Blackman law'] }
+    ],
+    'plant-respiration': [
+      { title: 'Respiration basics', subs: ['Respiratory substrates', 'Aerobic respiration', 'Anaerobic respiration', 'Respiratory quotient'] },
+      { title: 'Pathways', subs: ['Glycolysis', 'Pyruvate oxidation', 'Krebs cycle', 'Electron transport system', 'Oxidative phosphorylation'] },
+      { title: 'Fermentation', subs: ['Alcohol fermentation', 'Lactic acid fermentation', 'Incomplete oxidation'] },
+      { title: 'Energy accounting', subs: ['ATP yield', 'Amphibolic pathway', 'Respiratory balance sheet limits'] }
+    ],
+    'plant-growth': [
+      { title: 'Growth analysis', subs: ['Growth phases', 'Arithmetic growth', 'Geometric growth', 'Growth rate', 'Differentiation and dedifferentiation'] },
+      { title: 'Plant hormones', subs: ['Auxins', 'Gibberellins', 'Cytokinins', 'Abscisic acid', 'Ethylene'] },
+      { title: 'Developmental responses', subs: ['Photoperiodism', 'Vernalisation', 'Seed dormancy', 'Senescence'] },
+      { title: 'Application traps', subs: ['Apical dominance', 'Fruit ripening', 'Bolting', 'Stomatal closure'] }
+    ],
+    'flower-reproduction': [
+      { title: 'Flower structure', subs: ['Stamen', 'Anther', 'Pollen grain', 'Pistil', 'Ovule', 'Embryo sac'] },
+      { title: 'Pre-fertilisation', subs: ['Microsporogenesis', 'Megasporogenesis', 'Pollination types', 'Outbreeding devices', 'Pollen-pistil interaction'] },
+      { title: 'Fertilisation', subs: ['Pollen tube growth', 'Double fertilisation', 'Syngamy', 'Triple fusion'] },
+      { title: 'Post-fertilisation', subs: ['Endosperm', 'Embryo', 'Seed', 'Fruit', 'Apomixis', 'Polyembryony'] }
+    ],
+    breathing: [
+      { title: 'Respiratory system', subs: ['Respiratory organs', 'Human respiratory tract', 'Alveoli', 'Mechanism of breathing'] },
+      { title: 'Gas exchange', subs: ['Partial pressure', 'Diffusion membrane', 'Oxygen transport', 'Carbon dioxide transport'] },
+      { title: 'Regulation', subs: ['Respiratory rhythm centre', 'Chemosensitive area', 'Pneumotaxic centre'] },
+      { title: 'Disorders and volumes', subs: ['Asthma', 'Emphysema', 'Occupational disorders', 'Tidal volume', 'Vital capacity', 'Residual volume'] }
+    ],
+    circulation: [
+      { title: 'Blood and lymph', subs: ['Plasma', 'RBC', 'WBC', 'Platelets', 'Blood groups', 'Coagulation', 'Lymph'] },
+      { title: 'Heart', subs: ['Chambers', 'Valves', 'Nodal tissue', 'Cardiac cycle', 'Heart sounds'] },
+      { title: 'Circulation', subs: ['Double circulation', 'Pulmonary circulation', 'Systemic circulation', 'ECG'] },
+      { title: 'Disorders', subs: ['Hypertension', 'Coronary artery disease', 'Angina', 'Heart failure'] }
+    ],
+    excretion: [
+      { title: 'Excretory products', subs: ['Ammonotelism', 'Ureotelism', 'Uricotelism', 'Human excretory system'] },
+      { title: 'Nephron', subs: ['Glomerulus', 'Bowman capsule', 'PCT', 'Loop of Henle', 'DCT', 'Collecting duct'] },
+      { title: 'Urine formation', subs: ['Ultrafiltration', 'Selective reabsorption', 'Tubular secretion', 'Counter-current mechanism'] },
+      { title: 'Regulation and disorders', subs: ['ADH', 'RAAS', 'ANF', 'Micturition', 'Uremia', 'Dialysis', 'Kidney transplant'] }
+    ],
+    locomotion: [
+      { title: 'Movement types', subs: ['Amoeboid movement', 'Ciliary movement', 'Muscular movement'] },
+      { title: 'Muscle contraction', subs: ['Skeletal muscle structure', 'Sarcomere', 'Sliding filament theory', 'Calcium role', 'ATP role'] },
+      { title: 'Skeletal system', subs: ['Axial skeleton', 'Appendicular skeleton', 'Joints', 'Synovial joint types'] },
+      { title: 'Disorders', subs: ['Myasthenia gravis', 'Muscular dystrophy', 'Tetany', 'Arthritis', 'Osteoporosis', 'Gout'] }
+    ],
+    neural: [
+      { title: 'Neuron and impulse', subs: ['Neuron structure', 'Resting potential', 'Action potential', 'Impulse conduction'] },
+      { title: 'Synapse', subs: ['Electrical synapse', 'Chemical synapse', 'Neurotransmitters', 'Synaptic transmission'] },
+      { title: 'Central nervous system', subs: ['Forebrain', 'Midbrain', 'Hindbrain', 'Spinal cord', 'Reflex action'] },
+      { title: 'Sense organs', subs: ['Eye structure', 'Image formation', 'Ear structure', 'Hearing', 'Balance'] }
+    ],
+    chemical: [
+      { title: 'Endocrine glands', subs: ['Pituitary', 'Pineal', 'Thyroid', 'Parathyroid', 'Adrenal', 'Pancreas', 'Gonads'] },
+      { title: 'Hormone chemistry', subs: ['Peptide hormones', 'Steroid hormones', 'Amino acid derivatives', 'Mechanism of action'] },
+      { title: 'Feedback control', subs: ['Hypothalamus', 'Releasing hormones', 'Inhibiting hormones', 'Negative feedback'] },
+      { title: 'Disorders', subs: ['Diabetes mellitus', 'Goitre', 'Cretinism', 'Graves disease', 'Addison disease', 'Cushing syndrome'] }
+    ],
+    'human-reproduction': [
+      { title: 'Male system', subs: ['Testis', 'Accessory ducts', 'Accessory glands', 'Spermatogenesis', 'Semen'] },
+      { title: 'Female system', subs: ['Ovary', 'Oviduct', 'Uterus', 'External genitalia', 'Mammary glands', 'Oogenesis'] },
+      { title: 'Cycles and fertilisation', subs: ['Menstrual cycle', 'Hormonal control', 'Ovulation', 'Fertilisation', 'Implantation'] },
+      { title: 'Pregnancy and birth', subs: ['Embryonic development', 'Placenta', 'Gestation', 'Parturition', 'Lactation'] }
+    ],
+    'reproductive-health': [
+      { title: 'Reproductive health problems', subs: ['Population explosion', 'Sex education', 'STIs', 'Infertility'] },
+      { title: 'Contraception', subs: ['Natural methods', 'Barrier methods', 'IUDs', 'Oral pills', 'Injectables', 'Surgical methods'] },
+      { title: 'Medical interventions', subs: ['MTP', 'Amniocentesis', 'ART', 'IVF', 'ZIFT', 'IUT', 'GIFT', 'ICSI', 'AI'] },
+      { title: 'Public health', subs: ['RCH programmes', 'Awareness', 'Safe practices', 'Legal and ethical issues'] }
+    ],
+    'human-health': [
+      { title: 'Health and disease', subs: ['Health definition', 'Pathogens', 'Typhoid', 'Pneumonia', 'Common cold', 'Malaria', 'Amoebiasis', 'Ascariasis'] },
+      { title: 'Immunity', subs: ['Innate immunity', 'Acquired immunity', 'Antibodies', 'Vaccination', 'Allergy', 'Autoimmunity'] },
+      { title: 'Major diseases', subs: ['AIDS', 'Cancer', 'Tumour types', 'Oncogenes', 'Detection and treatment'] },
+      { title: 'Addiction', subs: ['Drugs', 'Alcohol', 'Dependence', 'Withdrawal', 'Prevention and control'] }
+    ],
+    microbes: [
+      { title: 'Household products', subs: ['Curd', 'Dough', 'Cheese', 'Fermented beverages'] },
+      { title: 'Industrial products', subs: ['Antibiotics', 'Organic acids', 'Enzymes', 'Bioactive molecules'] },
+      { title: 'Environment', subs: ['Sewage treatment', 'BOD', 'Flocs', 'Biogas', 'Methanogens'] },
+      { title: 'Agriculture', subs: ['Biocontrol agents', 'Biofertilisers', 'Rhizobium', 'Cyanobacteria', 'Mycorrhiza'] }
+    ],
+    evolution: [
+      { title: 'Origin of life', subs: ['Big bang idea', 'Chemical evolution', 'Miller experiment', 'First life forms'] },
+      { title: 'Evidences', subs: ['Fossils', 'Comparative anatomy', 'Embryology', 'Molecular evidence', 'Industrial melanism'] },
+      { title: 'Mechanism', subs: ['Natural selection', 'Genetic drift', 'Mutation', 'Recombination', 'Gene flow', 'Hardy-Weinberg principle'] },
+      { title: 'Human evolution', subs: ['Dryopithecus', 'Ramapithecus', 'Australopithecus', 'Homo habilis', 'Homo erectus', 'Neanderthal', 'Homo sapiens'] }
+    ],
+    'biotech-principles': [
+      { title: 'Core principles', subs: ['Genetic engineering', 'Sterile processing', 'Recombinant DNA', 'Cloning'] },
+      { title: 'Tools', subs: ['Restriction enzymes', 'Ligase', 'Polymerase', 'Vectors', 'Selectable markers', 'Competent host'] },
+      { title: 'Processes', subs: ['Isolation of DNA', 'Cutting DNA', 'Amplification by PCR', 'Ligation', 'Transformation', 'Screening'] },
+      { title: 'Bioreactors', subs: ['Stirred tank reactor', 'Downstream processing', 'Product separation', 'Quality control'] }
+    ],
+    'biotech-applications': [
+      { title: 'Agriculture', subs: ['Bt cotton', 'Pest resistance', 'RNA interference', 'Nematode resistance'] },
+      { title: 'Medicine', subs: ['Recombinant insulin', 'Gene therapy', 'ADA deficiency', 'Molecular diagnosis'] },
+      { title: 'Diagnostics', subs: ['PCR', 'ELISA', 'DNA probes', 'Early detection'] },
+      { title: 'Ethics', subs: ['GEAC', 'Biopiracy', 'Patents', 'Biosafety'] }
+    ],
+    'organisms-populations': [
+      { title: 'Organism and environment', subs: ['Major abiotic factors', 'Temperature', 'Water', 'Light', 'Soil', 'Adaptations'] },
+      { title: 'Population attributes', subs: ['Density', 'Natality', 'Mortality', 'Sex ratio', 'Age pyramid'] },
+      { title: 'Population growth', subs: ['Exponential growth', 'Logistic growth', 'Carrying capacity', 'Life history variation'] },
+      { title: 'Interactions', subs: ['Predation', 'Competition', 'Parasitism', 'Commensalism', 'Mutualism', 'Amensalism'] }
+    ],
+    ecosystem: [
+      { title: 'Ecosystem structure', subs: ['Abiotic components', 'Producers', 'Consumers', 'Decomposers', 'Stratification'] },
+      { title: 'Productivity', subs: ['Primary productivity', 'GPP', 'NPP', 'Secondary productivity'] },
+      { title: 'Decomposition and energy', subs: ['Fragmentation', 'Leaching', 'Catabolism', 'Humification', 'Mineralisation', 'Food chains', 'Food webs'] },
+      { title: 'Cycles and succession', subs: ['Ecological pyramids', 'Ecological succession', 'Carbon cycle', 'Phosphorus cycle'] }
+    ],
+    biodiversity: [
+      { title: 'Biodiversity basics', subs: ['Genetic diversity', 'Species diversity', 'Ecological diversity', 'India as mega-diverse nation'] },
+      { title: 'Patterns', subs: ['Latitudinal gradients', 'Species-area relationship', 'Rivet popper hypothesis'] },
+      { title: 'Loss of biodiversity', subs: ['Habitat loss', 'Over-exploitation', 'Alien species invasion', 'Co-extinctions'] },
+      { title: 'Conservation', subs: ['In-situ conservation', 'Ex-situ conservation', 'Hotspots', 'Sacred groves', 'Biosphere reserves', 'Seed banks'] }
+    ]
+  };
+
+  function biologyIds() {
+    return floors.flatMap(floor => floor.chapters.map(chapter => chapter.id));
+  }
+
+  const subjectDecks = {
+    biology: {
+      key: 'biology',
+      label: 'Biology',
+      code: 'BIO',
+      startPathIds: ['living-world', 'cell', 'biomolecules', 'cell-cycle', 'inheritance', 'molecular'],
+      floors,
+      chapterTopics,
+      routes: {
+        all: { code: '00', label: 'Full biology', deck: 'All floors', summary: 'All Biology chapters are visible in foundation-floor order.', ids: biologyIds() },
+        route1: { code: '01', label: 'Cell to gene', deck: 'Molecule to DNA', summary: 'Biomolecules, cell structure, division, genetics, molecular basis, and biotechnology in one clean spine.', ids: ['biomolecules', 'cell', 'cell-cycle', 'inheritance', 'molecular', 'biotech-principles', 'biotech-applications'] },
+        route2: { code: '02', label: 'Form to function', deck: 'Body plan to systems', summary: 'Body plans, tissues, plant physiology, human systems, and reproduction arranged as structure becoming function.', ids: ['plant-kingdom', 'animal-kingdom', 'morphology', 'anatomy', 'animal-tissue', 'photosynthesis', 'plant-respiration', 'plant-growth', 'breathing', 'circulation', 'excretion', 'locomotion', 'neural', 'chemical', 'flower-reproduction', 'human-reproduction', 'reproductive-health'] },
+        route3: { code: '03', label: 'Organism to ecology', deck: 'Life to biosphere', summary: 'Language of life, classification, evolution, ecology, biodiversity, health, microbes, and applied intervention.', ids: ['living-world', 'classification', 'evolution', 'organisms-populations', 'ecosystem', 'biodiversity', 'human-health', 'microbes', 'biotech-applications'] }
+      }
+    },
+    ...(window.studyDecks || {})
+  };
+
+  function currentDeck() {
+    return subjectDecks[activeSubject] || subjectDecks.biology;
+  }
+
+  function currentRoutes() {
+    return currentDeck().routes || subjectDecks.biology.routes;
+  }
+
+  function enrichChapter(chapter) {
+    const isDiagramHeavy = /anatomy|cell|flower|reproduction|breathing|circulation|excretion|neural|biotech|photosynthesis|field|circuit|optic|rotation|organic|bond|coordination|electrochemistry/i.test(`${chapter.id} ${chapter.title}`);
+    const focus = chapter.ncert || focusByType[chapter.type] || focusByType.conceptual;
+    const warning = chapter.warning || (isDiagramHeavy ? 'Diagram or formula map must be mastered' : warningByType[chapter.type]);
+    return {
+      ...chapter,
+      difficulty: chapter.difficulty || (isDiagramHeavy ? 'Diagram heavy' : difficultyByType[chapter.type]),
+      pyq: pyqByYield[chapter.yield] || 'Moderate PYQ',
+      ncert: focus,
+      warning,
+      stuck: stuckGuide[chapter.id] || chapter.before,
+      recall: chapter.recall || recallByType[chapter.type] || recallByType.conceptual
+    };
+  }
+
+  function deckChapters(deck = currentDeck()) {
+    return deck.floors.flatMap(floor => floor.chapters.map(chapter => enrichChapter({
+      ...chapter,
+      subject: deck.key,
+      subjectLabel: deck.label,
+      subjectCode: deck.code,
+      floor: floor.level,
+      floorName: floor.name
+    })));
+  }
+
+  function filterMatches(chapter, filter) {
+    if (filter === 'all') return true;
+    if (filter === '11' || filter === '12') return chapter.class === filter;
+    if (filter === 'high') return chapter.yield === 'high';
+    if (filter === 'conceptual') return chapter.type === 'conceptual';
+    return true;
+  }
+
+  function getRouteChapters(routeKey = activeRoute, filter = activeFilter) {
+    const chapters = deckChapters();
+    const plans = currentRoutes();
+    const plan = plans[routeKey] || plans.all;
+    return plan.ids
+      .map(id => chapters.find(chapter => chapter.id === id))
+      .filter(Boolean)
+      .filter(chapter => filterMatches(chapter, filter));
+  }
+
+  function updateRouteControls() {
+    const plans = currentRoutes();
+    const routeKeys = ['all', 'route1', 'route2', 'route3'];
+    routeButtons.forEach((button, index) => {
+      const key = routeKeys[index];
+      const plan = plans[key];
+      button.hidden = !plan;
+      if (!plan) return;
+      button.dataset.route = key;
+      button.querySelector('b').textContent = plan.code;
+      button.querySelector('span').textContent = plan.label;
+      button.querySelector('em').textContent = plan.deck;
+      button.setAttribute('aria-pressed', String(key === activeRoute));
+    });
+    subjectButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.subject === activeSubject));
+    });
+    classButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.classFilter === activeFilter));
+    });
+  }
+
+  function updateFilterButtons(filter) {
+    filters.forEach(item => {
+      item.setAttribute('aria-pressed', String(item.dataset.filter === filter));
+    });
+    classButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.classFilter === filter));
+    });
+  }
+
+  function updateRouteReadout() {
+    const deck = currentDeck();
+    const plans = currentRoutes();
+    if (!plans[activeRoute]) activeRoute = 'all';
+    const plan = plans[activeRoute] || plans.all;
+    const count = getRouteChapters(activeRoute, activeFilter).length;
+    routeNameTop.textContent = deck.label;
+    routeReadoutLine.textContent = `${plan.summary} ${count} chapter${count === 1 ? '' : 's'} active.`;
+    updateRouteControls();
+  }
+
+  function renderMap(filter = 'all') {
+    activeFilter = filter;
+    updateRouteReadout();
+    if (activeRoute !== 'all') {
+      renderRouteMap(filter);
+      return;
+    }
+
+    const deck = currentDeck();
+    chapterMap.innerHTML = '';
+    chapterMap.classList.remove('is-route-mode');
+    let hasVisibleChapters = false;
+    deck.floors.forEach(floor => {
+      const visibleChapters = floor.chapters
+        .map(chapter => enrichChapter({ ...chapter, subject: deck.key, subjectLabel: deck.label, subjectCode: deck.code, floor: floor.level, floorName: floor.name }))
+        .filter(chapter => filterMatches(chapter, filter));
+
+      if (!visibleChapters.length) return;
+      hasVisibleChapters = true;
+
+      const floorElement = document.createElement('article');
+      floorElement.className = 'floor';
+      floorElement.innerHTML = `
+        <div class="floor-label">
+          <span class="floor-number">${floor.level}</span>
+          <span>${floor.name}</span>
+        </div>
+        <div class="nodes"></div>
+      `;
+
+      const nodes = floorElement.querySelector('.nodes');
+      visibleChapters.forEach(chapter => {
+        const node = document.createElement('button');
+        node.className = 'node';
+        node.type = 'button';
+        node.dataset.id = chapter.id;
+        node.dataset.class = chapter.class;
+        node.dataset.code = chapter.code;
+        node.dataset.subject = chapter.subject;
+        node.innerHTML = `
+          <h3>${chapter.title}</h3>
+          <p>${chapter.note}</p>
+          <div class="node-tags"><span class="node-tag">${chapter.difficulty}</span><span class="node-tag">${chapter.pyq}</span></div>
+        `;
+        node.addEventListener('click', () => openChapter(chapter.id));
+        nodes.appendChild(node);
+      });
+
+      chapterMap.appendChild(floorElement);
+    });
+
+    if (!hasVisibleChapters) showEmptySelection();
+  }
+
+  function renderRouteMap(filter = activeFilter) {
+    const plans = currentRoutes();
+    const plan = plans[activeRoute] || plans.all;
+    const chapters = getRouteChapters(activeRoute, filter);
+    chapterMap.innerHTML = '';
+    chapterMap.classList.add('is-route-mode');
+
+    if (!chapters.length) {
+      showEmptySelection();
+      return;
+    }
+
+    const panel = document.createElement('article');
+    panel.className = 'route-map-panel';
+    panel.innerHTML = `
+      <div class="route-map-head">
+        <b>${plan.code}</b>
+        <div>
+          <h3>${plan.label}</h3>
+          <p>${plan.summary}</p>
+        </div>
+        <div class="route-count"><strong>${chapters.length}</strong> active</div>
+      </div>
+      <div class="route-node-grid"></div>
+    `;
+
+    const grid = panel.querySelector('.route-node-grid');
+    chapters.forEach((chapter, index) => {
+      const node = document.createElement('button');
+      node.className = 'node route-node';
+      node.type = 'button';
+      node.dataset.id = chapter.id;
+      node.dataset.class = chapter.class;
+      node.dataset.code = chapter.code;
+      node.dataset.subject = chapter.subject;
+      node.dataset.routeStep = String(index + 1).padStart(2, '0');
+      node.style.animationDelay = `${index * 58}ms`;
+      node.innerHTML = `
+        <h3>${chapter.title}</h3>
+        <p>${chapter.note}</p>
+        <div class="node-tags"><span class="node-tag">${chapter.difficulty}</span><span class="node-tag">${chapter.pyq}</span></div>
+      `;
+      node.addEventListener('click', () => openChapter(chapter.id));
+      grid.appendChild(node);
+    });
+
+    chapterMap.appendChild(panel);
+  }
+
+  function chipList(items) {
+    return items.map(item => `<span class="chip">${item}</span>`).join('');
+  }
+
+  function topicCards(chapterId) {
+    const deck = currentDeck();
+    const topics = (deck.chapterTopics && deck.chapterTopics[chapterId]) || [];
+    return topics.map((topic, index) => `
+      <article class="topic-card" style="animation-delay:${index * 70}ms">
+        <b>${String(index + 1).padStart(2, '0')} / ${topic.title}</b>
+        <ul>${topic.subs.map(subtopic => `<li>${subtopic}</li>`).join('')}</ul>
+      </article>
+    `).join('');
+  }
+
+  function selectChapter(id) {
+    const chapter = deckChapters().find(item => item.id === id);
+    if (!chapter) return;
+
+    document.querySelectorAll('.node').forEach(node => {
+      node.classList.toggle('is-active', node.dataset.id === id);
+    });
+
+    detailCard.innerHTML = `
+      <span class="code">${chapter.subjectLabel} / ${chapter.code} / Floor ${chapter.floor}</span>
+      <h2>${chapter.title}</h2>
+      <p>${chapter.note} This block sits on <strong>${chapter.floorName}</strong>, so revise it with its prerequisite chapters instead of treating it as an isolated lesson.</p>
+      <div class="detail-meta">
+        <div><b>${chapter.class}</b><span>Class</span></div>
+        <div><b>${chapter.yield}</b><span>Exam yield</span></div>
+        <div><b>${chapter.difficulty}</b><span>Difficulty</span></div>
+        <div><b>${chapter.pyq}</b><span>PYQ heat</span></div>
+        <div><b>${chapter.type}</b><span>Nature</span></div>
+        <div><b>${chapter.floor}</b><span>Foundation floor</span></div>
+      </div>
+    `;
+
+    linkPanel.innerHTML = `
+      <h3>Dependency view</h3>
+      <div class="route"><strong>Before</strong><div class="chips">${chipList(chapter.before)}</div></div>
+      <div class="route"><strong>If stuck</strong><div class="chips">${chipList(chapter.stuck)}</div></div>
+      <div class="route"><strong>After</strong><div class="chips">${chipList(chapter.after)}</div></div>
+      <div class="route"><strong>NCERT focus</strong><div class="chips">${chipList(chapter.ncert)}</div></div>
+      <div class="route"><strong>Recall</strong><div class="chips">${chipList(chapter.recall)}</div></div>
+      <div class="route"><strong>Warning</strong><div class="chips">${chipList([chapter.warning])}</div></div>
+      <div class="route"><strong>Exam role</strong><div class="chips">${chipList(chapter.role)}</div></div>
+      <div class="topic-panel">
+        <h4>Inside this chapter</h4>
+        <div class="topic-grid">${topicCards(chapter.id)}</div>
+      </div>
+    `;
+  }
+
+  function showEmptySelection() {
+    const deck = currentDeck();
+    chapterMap.innerHTML = `<div class="route-empty"><b>${deck.label}</b><span>No chapters match this selector. Switch class or route to reopen the deck.</span></div>`;
+    detailCard.innerHTML = `
+      <span class="code">${deck.code}</span>
+      <h2>${deck.label}</h2>
+      <p>This subject deck is loaded with Class 11 and Class 12 chapters. Use All, XI, or XII to change the visible foundation map.</p>
+    `;
+    linkPanel.innerHTML = `
+      <h3>Subject map</h3>
+      <div class="route"><strong>Loaded</strong><div class="chips">${chipList(deckChapters(deck).map(chapter => chapter.title).slice(0, 6))}</div></div>
+      <div class="route"><strong>Use</strong><div class="chips">${chipList(['All', 'Class XI', 'Class XII', 'Routes'])}</div></div>
+    `;
+  }
+
+  function renderInventory() {
+    const deck = currentDeck();
+    const chapters = deckChapters(deck);
+    const class11 = chapters.filter(chapter => chapter.class === '11');
+    const class12 = chapters.filter(chapter => chapter.class === '12');
+    const syllabusIntro = document.querySelector('#syllabus .section-head p');
+    const classHeads = document.querySelectorAll('.class-block h3');
+    if (syllabusIntro) syllabusIntro.textContent = `The inventory follows the loaded ${deck.label} deck with Class 11 and Class 12 chapters arranged for foundation-first revision.`;
+    if (classHeads[0]) classHeads[0].textContent = `Class XI ${deck.label}`;
+    if (classHeads[1]) classHeads[1].textContent = `Class XII ${deck.label}`;
+
+    const renderRows = rows => rows.map(chapter => `
+      <button class="chapter-row" type="button" data-id="${chapter.id}">
+        <b>${chapter.code}</b>
+        <span>${chapter.title}</span>
+        <em>${chapter.pyq}</em>
+      </button>
+    `).join('');
+
+    class11List.innerHTML = renderRows(class11);
+    class12List.innerHTML = renderRows(class12);
+
+    document.querySelectorAll('.chapter-row').forEach(row => {
+      row.addEventListener('click', () => {
+        openChapter(row.dataset.id);
+      });
+    });
+  }
+
+  function renderStartPath() {
+    const deck = currentDeck();
+    const chapters = deckChapters(deck);
+    const pathButtons = document.querySelectorAll('.path-step');
+    (deck.startPathIds || []).forEach((id, index) => {
+      const chapter = chapters.find(item => item.id === id);
+      const button = pathButtons[index];
+      if (!button || !chapter) return;
+      button.dataset.id = chapter.id;
+      const number = button.querySelector('b');
+      const label = button.querySelector('span');
+      if (number) number.textContent = String(index + 1).padStart(2, '0');
+      if (label) label.textContent = chapter.title;
+    });
+    const brief = document.querySelector('.start-brief p');
+    if (brief) brief.textContent = `This is the ${deck.label} foundation spine. Use it before jumping into heavier Class 12 chapters, mixed PYQs, or timed revision.`;
+  }
+
+  function progressKey(id, state) {
+    return `study-map:${activeSubject}:${id}:${state}`;
+  }
+
+  function chapterStoreKey(id, area) {
+    return `study-map:chapter:${id}:${area}`;
+  }
+
+  function allDeckChapters() {
+    return Object.values(subjectDecks).flatMap(deck => deckChapters(deck));
+  }
+
+  function findAnyChapter(id) {
+    return allDeckChapters().find(chapter => chapter.id === id);
+  }
+
+  function transitionTo(url, label = 'MAP') {
+    if (!pageTransition) {
+      window.location.href = url;
+      return;
+    }
+    pageTransition.textContent = label;
+    pageTransition.dataset.label = label;
+    pageTransition.classList.add('is-active');
+    setTimeout(() => { window.location.href = url; }, 660);
+  }
+
+  function openChapter(id) {
+    const chapter = findAnyChapter(id);
+    transitionTo('chapter.html?id=' + id, chapter ? chapter.code.split('-').pop() || 'OPEN' : 'OPEN');
+  }
+
+  function getChapterMastery(id) {
+    try {
+      return localStorage.getItem(chapterStoreKey(id, 'mastery')) || 'not-started';
+    } catch {
+      return 'not-started';
+    }
+  }
+
+  function chapterComplete(chapter) {
+    const mastery = getChapterMastery(chapter.id);
+    if (['revised', 'pyq-done', 'mastered'].includes(mastery)) return true;
+    return getProgress(chapter.id, 'Revised') || getProgress(chapter.id, 'PYQs done') || getProgress(chapter.id, 'Mistakes fixed');
+  }
+
+  function revisionQueue() {
+    try {
+      return JSON.parse(localStorage.getItem('study-map:revision-queue') || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function missionButton(chapter, tag) {
+    return `
+      <button class="mission-item" type="button" data-open-chapter="${chapter.id}">
+        <b>${tag}</b>
+        <strong>${chapter.title}</strong>
+        <span>${chapter.subjectCode} / ${chapter.code}</span>
+      </button>
+    `;
+  }
+
+  function queueButton(chapter) {
+    return `
+      <button class="queue-item" type="button" data-open-chapter="${chapter.id}">
+        <b>${chapter.subjectCode}</b>
+        <strong>${chapter.title}</strong>
+        <span>${getChapterMastery(chapter.id).replace(/-/g, ' ')}</span>
+      </button>
+    `;
+  }
+
+  function renderMissionBoard() {
+    if (!dailyMission || !revisionQueuePanel) return;
+    const chapters = deckChapters();
+    const incomplete = chapters.filter(chapter => !chapterComplete(chapter));
+    const queueChapters = revisionQueue().map(findAnyChapter).filter(Boolean);
+    const day = Math.floor(Date.now() / 86400000);
+    const first = incomplete.length ? incomplete[day % incomplete.length] : chapters[0];
+    const second = incomplete.length > 1 ? incomplete[(day + 3) % incomplete.length] : chapters[1] || first;
+    const third = queueChapters[0] || incomplete.find(chapter => chapter.yield === 'high' && chapter.id !== (first && first.id)) || chapters[2] || first;
+    const missions = [first, second, third].filter(Boolean).filter((chapter, index, arr) => arr.findIndex(item => item.id === chapter.id) === index);
+    const labels = ['Concept', 'Revision', 'Queue'];
+    dailyMission.innerHTML = missions.map((chapter, index) => missionButton(chapter, labels[index] || 'Task')).join('');
+    revisionQueuePanel.innerHTML = queueChapters.length
+      ? queueChapters.slice(0, 8).map(queueButton).join('')
+      : '<div class="queue-empty">No pinned chapters yet. Open a chapter and hit “Add to revision queue”.</div>';
+    document.querySelectorAll('[data-open-chapter]').forEach(button => {
+      button.addEventListener('click', () => openChapter(button.dataset.openChapter));
+    });
+  }
+
+  function getProgress(id, state) {
+    try {
+      return localStorage.getItem(progressKey(id, state)) === 'true';
+    } catch {
+      return false;
+    }
+  }
+
+  function setProgress(id, state, value) {
+    try {
+      localStorage.setItem(progressKey(id, state), String(value));
+    } catch {
+      return false;
+    }
+    return true;
+  }
+
+  function renderTracker() {
+    trackerBoard.innerHTML = deckChapters().map(chapter => `
+      <div class="tracker-row">
+        <strong>${chapter.code}</strong>
+        <span>${chapter.title}</span>
+        ${trackerStates.map(state => {
+          const pressed = getProgress(chapter.id, state);
+          return `<button class="track-btn" type="button" data-id="${chapter.id}" data-state="${state}" aria-pressed="${pressed}">${state}</button>`;
+        }).join('')}
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.track-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const next = button.getAttribute('aria-pressed') !== 'true';
+        button.setAttribute('aria-pressed', String(next));
+        setProgress(button.dataset.id, button.dataset.state, next);
+        renderMissionBoard();
+      });
+    });
+  }
+
+  function showChapterFromPath(id) {
+    openChapter(id);
+  }
+
+  function refreshSubject(shouldScroll = true) {
+    updateFilterButtons(activeFilter);
+    renderStartPath();
+    renderMap(activeFilter);
+    renderInventory();
+    renderTracker();
+    renderMissionBoard();
+    primeMotion(document);
+    const firstChapter = getRouteChapters(activeRoute, activeFilter)[0] || deckChapters()[0];
+    if (firstChapter) selectChapter(firstChapter.id);
+    if (shouldScroll) document.querySelector('#map').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function setActiveSubject(subjectKey, shouldScroll = true) {
+    playSwitchAnimation();
+    activeSubject = subjectDecks[subjectKey] ? subjectKey : 'biology';
+    activeRoute = 'all';
+    activeFilter = 'all';
+    refreshSubject(shouldScroll);
+  }
+
+  function setActiveRoute(routeKey, shouldScroll = true) {
+    playSwitchAnimation();
+    activeRoute = currentRoutes()[routeKey] ? routeKey : 'all';
+    refreshSubject(shouldScroll);
+  }
+
+  function setActiveFilter(filter, shouldScroll = false) {
+    playSwitchAnimation();
+    activeFilter = filter;
+    refreshSubject(shouldScroll);
+  }
+
+  function highlightStartPath() {
+    const deck = currentDeck();
+    playSwitchAnimation();
+    activeRoute = 'all';
+    activeFilter = 'all';
+    refreshSubject(false);
+    (deck.startPathIds || []).forEach(id => {
+      const node = document.querySelector(`.node[data-id="${id}"]`);
+      if (node) node.classList.add('is-active');
+    });
+    const first = (deck.startPathIds || [])[0] || (deckChapters()[0] && deckChapters()[0].id);
+    if (first) selectChapter(first);
+    document.querySelector('#map').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function openCommandPalette() {
+    if (!commandPalette || !commandInput) return;
+    commandPalette.classList.add('is-open');
+    commandInput.value = '';
+    renderCommandResults();
+    setTimeout(() => commandInput.focus(), 0);
+  }
+
+  function closeCommandPalette() {
+    if (commandPalette) commandPalette.classList.remove('is-open');
+  }
+
+  function commandEntries() {
+    return [
+      ...allDeckChapters().map(chapter => ({
+        type: chapter.subjectCode,
+        label: chapter.title,
+        sub: `${chapter.code} / ${chapter.floorName}`,
+        action: 'chapter',
+        target: chapter.id
+      })),
+      ...[
+        ['Mission board', 'mission'],
+        ['Foundation map', 'map'],
+        ['Completion tracker', 'track'],
+        ['30-day route', 'plan'],
+        ['Chapter inventory', 'syllabus']
+      ].map(item => ({ type: 'SECTION', label: item[0], sub: 'Jump inside homepage', action: 'section', target: item[1] })),
+      ...revisionQueue().map(findAnyChapter).filter(Boolean).map(chapter => ({
+        type: 'QUEUE',
+        label: chapter.title,
+        sub: 'Pinned revision chapter',
+        action: 'chapter',
+        target: chapter.id
+      }))
+    ];
+  }
+
+  function renderCommandResults() {
+    if (!commandInput || !commandResults) return;
+    const query = String(commandInput.value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const visible = commandEntries()
+      .filter(entry => !query || `${entry.type} ${entry.label} ${entry.sub}`.toLowerCase().includes(query))
+      .slice(0, 16);
+    commandResults.innerHTML = visible.map((entry, index) => `
+      <button class="command-result" type="button" data-command-index="${index}">
+        <b>${entry.type}</b>
+        <strong>${entry.label}</strong>
+        <span>${entry.sub}</span>
+      </button>
+    `).join('');
+    commandResults.querySelectorAll('[data-command-index]').forEach((button, index) => {
+      button.addEventListener('click', () => runCommandEntry(visible[index]));
+    });
+  }
+
+  function runCommandEntry(entry) {
+    if (!entry) return;
+    closeCommandPalette();
+    if (entry.action === 'chapter') openChapter(entry.target);
+    if (entry.action === 'section') {
+      const section = document.getElementById(entry.target);
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  filters.forEach(button => {
+    button.addEventListener('click', () => setActiveFilter(button.dataset.filter));
+  });
+
+  classButtons.forEach(button => {
+    button.addEventListener('click', () => setActiveFilter(button.dataset.classFilter, true));
+  });
+
+  routeButtons.forEach(button => {
+    button.addEventListener('click', () => setActiveRoute(button.dataset.route));
+  });
+
+  subjectButtons.forEach(button => {
+    button.addEventListener('click', () => setActiveSubject(button.dataset.subject));
+  });
+
+  routeJumpButton.addEventListener('click', () => {
+    document.querySelector('#map').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.querySelectorAll('.path-step').forEach(button => {
+    button.addEventListener('click', () => showChapterFromPath(button.dataset.id));
+  });
+
+  startPathButton.addEventListener('click', highlightStartPath);
+  if (commandLaunch) commandLaunch.addEventListener('click', openCommandPalette);
+  if (commandInput) commandInput.addEventListener('input', renderCommandResults);
+  if (commandPalette) {
+    commandPalette.addEventListener('click', event => {
+      if (event.target === commandPalette) closeCommandPalette();
+    });
+  }
+  document.addEventListener('keydown', event => {
+    const target = event.target;
+    const typing = target && ['INPUT', 'TEXTAREA'].includes(target.tagName);
+    if (event.key === 'Escape') closeCommandPalette();
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      openCommandPalette();
+    } else if (!typing && event.key === '/') {
+      event.preventDefault();
+      openCommandPalette();
+    }
+  });
+
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const initialSubject = params.get('subject');
+    const initialRoute = params.get('route');
+    if (initialSubject && subjectDecks[initialSubject]) activeSubject = initialSubject;
+    if (initialRoute && currentRoutes()[initialRoute]) activeRoute = initialRoute;
+  } catch (error) {
+    // Keep the static page usable if URL parsing is unavailable.
+  }
+
+  initPointerSpotlight();
+  initMotionObserver();
+  refreshSubject(false);
+</script>
+</body>
+</html>
